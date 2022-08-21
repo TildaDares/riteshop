@@ -48,7 +48,7 @@ export default function Layout({ title, description, children }: { title: string
 
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppBar position='static' className={classes.navbar}>
+        <AppBar position='static' className={classes.navbar} color="primary">
           <Toolbar>
             <NextLink href='/' passHref>
               <Link>
