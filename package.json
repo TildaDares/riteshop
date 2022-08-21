@@ -10,11 +10,15 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.12.4",
+    "bcryptjs": "^2.4.3",
+    "js-cookie": "^3.0.1",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/js-cookie": "^3.0.2",
     "@types/node": "18.7.8",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",
