@@ -1,15 +1,13 @@
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, Typography } from '@material-ui/core'
+import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material'
 import NextLink from 'next/link'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Layout from '../components/Layout'
 import styles from '../styles/Home.module.css'
-import useStyles from '../utils/styles'
 
 const Home: NextPage = (props) => {
   const { data } = props
-  const classes = useStyles();
   return (
     <Layout>
       <div>
@@ -21,7 +19,7 @@ const Home: NextPage = (props) => {
                 <NextLink href={`/product/${product._id}`} passHref>
                   <CardActionArea>
                     <CardMedia
-                      className={classes.media}
+                      sx={{ height: '20rem' }}
                       component="img"
                       image={product.image}
                       title={product.name}
@@ -34,12 +32,16 @@ const Home: NextPage = (props) => {
                   </CardActionArea>
                 </NextLink>
                 <CardActions>
-                  <Typography>
+                  <Typography
+                    sx={{
+                      fontSize: '1.2rem',
+                      paddingLeft: '8px',
+                      color: 'red',
+                      fontWeight: 500
+                    }}
+                  >
                     ${product.price}
                   </Typography>
-                  <Button size="small" color="primary">
-                    Add to cart
-                  </Button>
                 </CardActions>
               </Card>
             </Grid>

@@ -1,19 +1,18 @@
 import NextLink from 'next/link';
 import Image from 'next/image';
-import { Button, Card, Grid, Link, List, ListItem, Typography } from '@material-ui/core';
+import { Button, Card, Grid, Link, List, ListItem, Typography } from '@mui/material';
 import React from 'react';
 import Layout from '../../components/Layout';
-import useStyles from '../../utils/styles';
+import styles from '../../styles/Home.module.css';
 
 export default function ProductScreen(props: any) {
   const { product } = props.data;
-  const classes = useStyles();
   if (!product) {
     return <div>Product not found</div>
   }
   return (
     <Layout title={product.name} description={product.description}>
-      <div className={classes.section}>
+      <div className={styles.section}>
         <NextLink href='/' passHref>
           <Link>
             <Typography>
@@ -32,7 +31,14 @@ export default function ProductScreen(props: any) {
               <Typography component="h1" variant="h1">{product.name}</Typography>
             </ListItem>
             <ListItem>
-              <Typography>Description: {product.description}</Typography>
+              <Typography sx={{
+                fontSize: '1.2rem',
+                color: 'red',
+                fontWeight: 500
+              }}>${product.price}</Typography>
+            </ListItem>
+            <ListItem>
+              <Typography>{product.description}</Typography>
             </ListItem>
           </List>
         </Grid>

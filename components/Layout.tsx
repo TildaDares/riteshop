@@ -2,13 +2,12 @@ import React, { useContext } from 'react'
 import Cookies from 'js-cookie'
 import Head from 'next/head'
 import NextLink from 'next/link'
-import { AppBar, Container, createTheme, CssBaseline, Link, Switch, ThemeProvider, Toolbar, Typography } from '@material-ui/core'
-import useStyles from '../utils/styles'
-import { Store } from '../utils/Store'
+import { AppBar, Container, Link, Toolbar, Typography } from '@mui/material'
+import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import styles from '../styles/Home.module.css'
 
 export default function Layout({ title, description, children }: { title: string, description: string, children: React.ReactNode }) {
-  const { state, dispatch } = useContext(Store)
-  const { darkMode } = state
   const theme = createTheme({
     typography: {
       h1: {
@@ -23,7 +22,7 @@ export default function Layout({ title, description, children }: { title: string
       }
     },
     palette: {
-      type: darkMode ? 'dark' : 'light',
+      mode: 'light',
       primary: {
         main: '#FFB200'
       },
@@ -32,12 +31,6 @@ export default function Layout({ title, description, children }: { title: string
       }
     }
   })
-  const classes = useStyles();
-  const darkModeChangeHandler = () => {
-    dispatch({ type: darkMode ? 'DARK_MODE_OFF' : 'DARK_MODE_ON' })
-    const newDarkMode = !darkMode
-    Cookies.set('darkMode', newDarkMode ? 'ON' : 'OFF');
-  }
   return (
     <div>
       <Head>
@@ -48,16 +41,30 @@ export default function Layout({ title, description, children }: { title: string
 
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppBar position='static' className={classes.navbar} color="primary">
+        <AppBar
+          position='static'
+          sx={{
+            '& a': {
+              color: '#ffffff',
+              marginLeft: 10,
+            }
+          }}
+          color="primary">
           <Toolbar>
             <NextLink href='/' passHref>
               <Link>
-                <Typography className={classes.brand}>Riteshop</Typography>
+                <Typography
+                  sx={{
+                    fontWeight: 'bold',
+                    fontSize: '1.5rem',
+                  }}
+                >
+                  Riteshop
+                </Typography>
               </Link>
             </NextLink>
-            <div className={classes.grow}></div>
+            <div className={styles.grow}></div>
             <div>
-              <Switch checked={darkMode} onChange={darkModeChangeHandler}></Switch>
               <NextLink href='/cart' passHref>
                 <Link>Cart</Link>
               </NextLink>
@@ -68,11 +75,11 @@ export default function Layout({ title, description, children }: { title: string
           </Toolbar>
         </AppBar>
 
-        <Container className={classes.main}>
+        <Container sx={{ minHeight: '80vh' }}>
           {children}
         </Container>
 
-        <footer className={classes.footer}>
+        <footer className={styles.footer}>
           <Typography>
             All rights reserved. Riteshop &copy; {new Date().getFullYear()}
           </Typography>

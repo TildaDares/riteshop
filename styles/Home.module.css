@@ -1,3 +1,6 @@
+.body {
+  background-color: #f5f5f5;
+}
 .container {
   padding: 0 2rem;
 }
@@ -106,6 +109,34 @@
 .logo {
   height: 1em;
   margin-left: 0.5rem;
+}
+
+.section {
+  margin-top: 10;
+  margin-bottom: 10;
+}
+
+.product-name {
+  padding-bottom: 0
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.footer {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.product-name p {
+  font-size: 1.2rem;
+}
+
+.price {
+  font-size: 1.2rem;
+  color: red;
+  font-weight: 500;
 }
 
 @media (max-width: 600px) {
