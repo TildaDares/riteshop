@@ -24,7 +24,7 @@ const Home: NextPage = (props) => {
                       image={product.image}
                       title={product.name}
                     />
-                    <CardContent>
+                    <CardContent sx={{ paddingBottom: 0 }}>
                       <Typography>
                         {product.name}
                       </Typography>

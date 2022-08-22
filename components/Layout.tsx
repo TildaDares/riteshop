@@ -2,10 +2,11 @@ import React, { useContext } from 'react'
 import Cookies from 'js-cookie'
 import Head from 'next/head'
 import NextLink from 'next/link'
-import { AppBar, Container, Link, Toolbar, Typography } from '@mui/material'
+import { AppBar, Container, Link, Toolbar, Typography, IconButton } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styles from '../styles/Home.module.css'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 export default function Layout({ title, description, children }: { title: string, description: string, children: React.ReactNode }) {
   const theme = createTheme({
@@ -42,7 +43,7 @@ export default function Layout({ title, description, children }: { title: string
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AppBar
-          position='static'
+          position='sticky'
           sx={{
             '& a': {
               color: '#ffffff',
@@ -64,12 +65,12 @@ export default function Layout({ title, description, children }: { title: string
               </Link>
             </NextLink>
             <div className={styles.grow}></div>
-            <div>
+            <div className={styles.navbarItems}>
               <NextLink href='/cart' passHref>
-                <Link>Cart</Link>
+                <Link><ShoppingCartIcon fontSize="large" /></Link>
               </NextLink>
               <NextLink href='/login' passHref>
-                <Link>Login</Link>
+                <Link sx={{ marginLeft: 40, fontSize: "1.2rem" }}>Login</Link>
               </NextLink>
             </div>
           </Toolbar>

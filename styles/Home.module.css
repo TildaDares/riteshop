@@ -112,8 +112,8 @@
 }
 
 .section {
-  margin-top: 10;
-  margin-bottom: 10;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .product-name {
@@ -127,6 +127,7 @@
 .footer {
   margin-top: 10px;
   text-align: center;
+  border: none;
 }
 
 .product-name p {
@@ -137,6 +138,12 @@
   font-size: 1.2rem;
   color: red;
   font-weight: 500;
+}
+
+.navbarItems {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (max-width: 600px) {
