@@ -1,16 +1,29 @@
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material'
+import { Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material'
 import NextLink from 'next/link'
 import type { NextPage } from 'next'
-import Head from 'next/head'
 import Image from 'next/image'
 import Layout from '../components/Layout'
-import styles from '../styles/Home.module.css'
+import Carousel from 'react-material-ui-carousel';
 
 const Home: NextPage = (props) => {
   const { data } = props
+  const featuredImages = ['/carousel-img1.jpg', '/carousel-img2.jpg', '/carousel-img3.jpg']
   return (
     <Layout>
-      <div>
+      <Carousel animation="slide" sx={{ marginTop: '10px' }}>
+        {featuredImages.map((src, index) =>
+          <Image
+            layout='responsive'
+            objectFit='cover'
+            width={640}
+            height={200}
+            key={index}
+            src={src}
+            alt=' Women Fashion'
+          />
+        )}
+      </Carousel>
+      <Container sx={{ minHeight: '80vh' }}>
         <h1>Products</h1>
         <Grid container spacing={3}>
           {data.products.map(product => (
@@ -35,7 +48,7 @@ const Home: NextPage = (props) => {
                   <Typography
                     sx={{
                       fontSize: '1.2rem',
-                      paddingLeft: '8px',
+                      pl: 1,
                       color: 'red',
                       fontWeight: 500
                     }}
@@ -47,7 +60,7 @@ const Home: NextPage = (props) => {
             </Grid>
           ))}
         </Grid>
-      </div>
+      </Container>
     </Layout>
   )
 }

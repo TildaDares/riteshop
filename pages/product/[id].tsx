@@ -1,79 +1,135 @@
 import NextLink from 'next/link';
-import Image from 'next/image';
-import { Button, Card, Grid, Link, List, ListItem, Typography } from '@mui/material';
+import {
+  Box,
+  Breadcrumbs,
+  Button,
+  ButtonGroup,
+  Card,
+  CardContent,
+  CardMedia,
+  Container,
+  Grid,
+  IconButton,
+  Link,
+  List,
+  ListItem,
+  Stack,
+  Typography
+} from '@mui/material';
 import React from 'react';
 import Layout from '../../components/Layout';
-import styles from '../../styles/Home.module.css';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 export default function ProductScreen(props: any) {
   const { product } = props.data;
-  if (!product) {
-    return <div>Product not found</div>
-  }
   return (
-    <Layout title={product.name} description={product.description}>
-      <div className={styles.section}>
-        <NextLink href='/' passHref>
-          <Link>
-            <Typography>
-              back to products
-            </Typography>
-          </Link>
-        </NextLink>
-      </div>
-      <Grid container spacing={1}>
-        <Grid item md={6} xs={12}>
-          <Image src={product.image} alt={product.name} width={640} height={640} layout="responsive" objectFit='cover'></Image>
-        </Grid>
-        <Grid item md={3} xs={12}>
-          <List>
-            <ListItem>
-              <Typography component="h1" variant="h1">{product.name}</Typography>
-            </ListItem>
-            <ListItem>
-              <Typography sx={{
-                fontSize: '1.2rem',
-                color: 'red',
-                fontWeight: 500
-              }}>${product.price}</Typography>
-            </ListItem>
-            <ListItem>
-              <Typography>{product.description}</Typography>
-            </ListItem>
-          </List>
-        </Grid>
-        <Grid item md={3} xs={12}>
-          <Card>
-            <List>
-              <ListItem>
-                <Grid container>
-                  <Grid item xs={6}>
-                    <Typography>Price</Typography>
+    <Layout title={product ? product.name : ''} description={product ? product.description : ''}>
+      <Container sx={{ minHeight: '80vh' }}>
+        {
+          product &&
+          (<>
+            <Stack spacing={2} sx={{ mt: 1 }}>
+              <Breadcrumbs separator="›" aria-label="breadcrumb">
+                <NextLink href='/' passHref>
+                  <Link underline="hover" key="1" color="inherit">
+                    Products
+                  </Link>
+                </NextLink>
+                <Typography key="3" color="text.primary">
+                  {product.name}
+                </Typography>
+              </Breadcrumbs>
+            </Stack>
+            <Card sx={{
+              display: 'flex',
+              mt: 2,
+              flexDirection: { xs: 'column', md: 'row' },
+              maxHeight: { md: '640px' }
+            }}>
+              <CardMedia
+                component="img"
+                sx={{
+                  width: { xs: '100%', md: '50%' },
+                  m: { md: '20px 0 20px 20px' },
+                  objectFit: 'cover'
+                }}
+                image={product.image}
+                alt={product.name}
+              />
+              <Box sx={{
+                display: 'flex',
+                flexDirection: { xs: 'row', md: 'column' },
+                width: { xs: '100%', md: '50%' }
+              }}>
+                <CardContent sx={{ flex: '1 0 auto' }}>
+                  <Grid container spacing={7}>
+                    <Grid item xs={9}>
+                      <List sx={{ pt: 0 }}>
+                        <ListItem sx={{ pt: 0 }}>
+                          <Grid item>
+                            <Typography
+                              component="h1"
+                              variant="h1"
+                              sx={{
+                                m: 0,
+                                fontSize: '2.5rem'
+                              }}
+                            >
+                              {product.name}
+                            </Typography>
+                          </Grid>
+                        </ListItem>
+                        <ListItem>
+                          <Typography>{product.description}</Typography>
+                        </ListItem>
+                        <ListItem>
+                          <Typography sx={{ color: 'red', fontWeight: 500, fontSize: '1.2rem' }}>
+                            {product.quantity > 0 ? 'In Stock' : 'Unavailable'}
+                          </Typography>
+                        </ListItem>
+                      </List>
+                    </Grid>
+                    <Grid item xs={3}>
+                      <Typography sx={{
+                        fontSize: '1.9rem',
+                        color: 'red',
+                        fontWeight: 500
+                      }}>${product.price}</Typography>
+                    </Grid>
                   </Grid>
-                  <Grid item>
-                    <Typography>${product.price}</Typography>
-                  </Grid>
-                </Grid>
-              </ListItem>
-              <ListItem>
-                <Grid container>
-                  <Grid item xs={6}>
-                    <Typography>Status</Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography>{product.quantity > 0 ? 'In Stock' : 'Unavailable'}</Typography>
-                  </Grid>
-                </Grid>
-              </ListItem>
-              <ListItem>
-                <Button fullWidth variant="contained" color="primary">
-                  Add to cart
-                </Button>
-              </ListItem>
-            </List>
-          </Card>
-        </Grid>
-      </Grid>
+                  {/* <ButtonGroup>
+                    <IconButton color="primary" aria-label="add quantity" component="label" variant="contained">
+                      <AddIcon />
+                    </IconButton>
+                    <Typography>1</Typography>
+                    <IconButton color="primary" aria-label="subtract quantity" component="label" variant="contained">
+                      <RemoveIcon />
+                    </IconButton>
+                  </ButtonGroup> */}
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    startIcon={<AddShoppingCartIcon />}
+                    sx={{ ml: 2, p: 1 }}
+                  >
+                    Add to cart
+                  </Button>
+                </CardContent>
+              </Box>
+            </Card>
+          </>)
+        }
+        {!product &&
+          <Container sx={{ textAlign: 'center', display: 'flex', alignItems: 'center', minHeight: '80vh' }}>
+            <SentimentVeryDissatisfiedIcon fontSize="large" />
+            <Typography variant="h1" sx={{ ml: 2 }}> Product Not Found</Typography>
+          </Container>
+        }
+      </Container>
     </Layout>
   )
 }

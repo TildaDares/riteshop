@@ -1,14 +1,28 @@
 import React, { useContext } from 'react'
-import Cookies from 'js-cookie'
 import Head from 'next/head'
 import NextLink from 'next/link'
-import { AppBar, Container, Link, Toolbar, Typography, IconButton } from '@mui/material'
+import { AppBar, Box, Button, Link, Stack, Toolbar, Typography } from '@mui/material'
+import useScrollTrigger from '@mui/material/useScrollTrigger';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styles from '../styles/Home.module.css'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import SearchBar from '../components/SearchBar'
 
-export default function Layout({ title, description, children }: { title: string, description: string, children: React.ReactNode }) {
+function ElevationScroll(props) {
+  const { children } = props;
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+  });
+
+  return React.cloneElement(children, {
+    elevation: trigger ? 4 : 0,
+  });
+}
+
+export default function Layout(props) {
+  const { title, description, children } = props
   const theme = createTheme({
     typography: {
       h1: {
@@ -25,60 +39,76 @@ export default function Layout({ title, description, children }: { title: string
     palette: {
       mode: 'light',
       primary: {
-        main: '#FFB200'
+        main: '#0d0c22'
+        // main: '#FFB200'
       },
       secondary: {
         main: '#FFA45B'
-      }
+      },
     }
   })
+
   return (
     <div>
       <Head>
-        <title>{title ? `${title} - Riteshop` : 'Riteshop'}</title>
+        <title>{title || title == '' ? `${title} - Riteshop` : 'Riteshop'}</title>
         {description && <meta name="description" content={description} />}
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppBar
-          position='sticky'
-          sx={{
-            '& a': {
-              color: '#ffffff',
-              marginLeft: 10,
-            }
-          }}
-          color="primary">
-          <Toolbar>
-            <NextLink href='/' passHref>
-              <Link>
-                <Typography
-                  sx={{
-                    fontWeight: 'bold',
-                    fontSize: '1.5rem',
+        <Box sx={{ display: 'flex' }}>
+          <ElevationScroll {...props}>
+            <AppBar
+              sx={{
+                mb: 2,
+                backgroundColor: '#fff',
+                pl: 4,
+                pr: 4
+              }}
+            >
+              <Toolbar>
+                <NextLink href='/' passHref>
+                  <Link sx={{
+                    flexGrow: 1,
                   }}
-                >
-                  Riteshop
-                </Typography>
-              </Link>
-            </NextLink>
-            <div className={styles.grow}></div>
-            <div className={styles.navbarItems}>
-              <NextLink href='/cart' passHref>
-                <Link><ShoppingCartIcon fontSize="large" /></Link>
-              </NextLink>
-              <NextLink href='/login' passHref>
-                <Link sx={{ marginLeft: 40, fontSize: "1.2rem" }}>Login</Link>
-              </NextLink>
-            </div>
-          </Toolbar>
-        </AppBar>
+                    underline="none"
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: '1.5rem',
+                        fontFamily: 'monospace',
+                        fontWeight: 700,
+                        letterSpacing: '.3rem',
+                      }}
+                    >
+                      Riteshop
+                    </Typography>
+                  </Link>
+                </NextLink>
+                <Stack direction="row" spacing={1}>
+                  <SearchBar />
+                  <Button size="large" startIcon={<ShoppingCartIcon />}>
+                    <NextLink href='/cart' passHref>
+                      <Link underline="none">Cart</Link>
+                    </NextLink>
+                  </Button>
+                  <Button size="large">
+                    <NextLink href='/login' passHref>
+                      <Link underline="none">Login</Link>
+                    </NextLink>
+                  </Button>
+                </Stack>
+              </Toolbar>
+            </AppBar>
+          </ElevationScroll>
+          <Toolbar />
+        </Box>
 
-        <Container sx={{ minHeight: '80vh' }}>
+        <main>
           {children}
-        </Container>
+        </main>
 
         <footer className={styles.footer}>
           <Typography>
