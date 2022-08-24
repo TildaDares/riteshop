@@ -43,8 +43,8 @@ export default function Layout(props) {
         // main: '#FFB200'
       },
       secondary: {
-        main: '#FFA45B'
-      },
+        main: '#d32f2f',
+      }
     }
   })
 

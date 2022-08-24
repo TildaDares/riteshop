@@ -46,10 +46,10 @@ const Home: NextPage = (props) => {
                 </NextLink>
                 <CardActions>
                   <Typography
+                    color='secondary'
                     sx={{
                       fontSize: '1.2rem',
                       pl: 1,
-                      color: 'red',
                       fontWeight: 500
                     }}
                   >

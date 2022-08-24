@@ -3,13 +3,13 @@ import {
   Box,
   Breadcrumbs,
   Button,
-  ButtonGroup,
   Card,
   CardContent,
   CardMedia,
   Container,
   Grid,
   IconButton,
+  Input,
   Link,
   List,
   ListItem,
@@ -38,7 +38,7 @@ export default function ProductScreen(props: any) {
                     Products
                   </Link>
                 </NextLink>
-                <Typography key="3" color="text.primary">
+                <Typography key="3" color="secondary">
                   {product.name}
                 </Typography>
               </Breadcrumbs>
@@ -93,31 +93,60 @@ export default function ProductScreen(props: any) {
                       </List>
                     </Grid>
                     <Grid item xs={3}>
-                      <Typography sx={{
-                        fontSize: '1.9rem',
-                        color: 'red',
-                        fontWeight: 500
-                      }}>${product.price}</Typography>
+                      <Typography
+                        color='secondary'
+                        sx={{
+                          fontSize: '1.9rem',
+                          fontWeight: 500
+                        }}>
+                        ${product.price}
+                      </Typography>
                     </Grid>
                   </Grid>
-                  {/* <ButtonGroup>
-                    <IconButton color="primary" aria-label="add quantity" component="label" variant="contained">
-                      <AddIcon />
-                    </IconButton>
-                    <Typography>1</Typography>
-                    <IconButton color="primary" aria-label="subtract quantity" component="label" variant="contained">
-                      <RemoveIcon />
-                    </IconButton>
-                  </ButtonGroup> */}
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    startIcon={<AddShoppingCartIcon />}
-                    sx={{ ml: 2, p: 1 }}
-                  >
-                    Add to cart
-                  </Button>
+                  <Grid container spacing={2} sx={{ marginLeft: '1px' }}>
+                    <Grid item sx={{ pl: 0 }}>
+                      <IconButton
+                        aria-label="add quantity"
+                        component="label"
+                        color='primary'
+                        sx={{ backgroundColor: '#e5e2e2' }}
+                      >
+                        <AddIcon />
+                      </IconButton>
+                      <Input
+                        defaultValue="1"
+                        type='number'
+                        inputProps={{ min: '1', max: product.quantity }}
+                        sx={{
+                          ml: 1,
+                          mr: 1,
+                          '& input': {
+                            textAlign: 'center'
+                          }
+                        }}
+                      />
+                      <IconButton
+                        aria-label="subtract quantity"
+                        component="label"
+                        color="primary"
+                        sx={{ backgroundColor: '#e5e2e2' }}
+                      >
+                        <RemoveIcon />
+                      </IconButton>
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        color="secondary"
+                        size="large"
+                        startIcon={<AddShoppingCartIcon />}
+                        sx={{ ml: 2, p: 1, borderRadius: '20px' }}
+                      >
+                        Add to cart
+                      </Button>
+                    </Grid>
+                  </Grid>
                 </CardContent>
               </Box>
             </Card>

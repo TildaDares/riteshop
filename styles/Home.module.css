@@ -135,12 +135,6 @@
   font-size: 1.2rem;
 }
 
-.price {
-  font-size: 1.2rem;
-  color: red;
-  font-weight: 500;
-}
-
 .navbarItems {
   display: flex;
   justify-content: center;
