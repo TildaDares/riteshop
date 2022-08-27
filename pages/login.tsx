@@ -93,7 +93,7 @@ const Login = () => {
                     helperText={
                       errors.password
                         ? errors.password.type === 'minLength'
-                          ? 'Password length is more than 5'
+                          ? 'Password length is less than 8'
                           : 'Password is required'
                         : ''
                     }
