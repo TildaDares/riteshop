@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 import { InputBase } from '@mui/material'
 import { styled } from '@mui/material/styles';
@@ -48,7 +48,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchBar() {
+const SearchBar = () => {
   return (
     <Search>
       <SearchIconWrapper>
@@ -61,3 +61,5 @@ export default function SearchBar() {
     </Search>
   )
 }
+
+export default SearchBar;
