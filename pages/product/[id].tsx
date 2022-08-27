@@ -22,6 +22,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { getData } from '../../utils/fetchData'
 
 export default function ProductScreen(props: any) {
   const { product } = props.data;
@@ -64,8 +65,14 @@ export default function ProductScreen(props: any) {
                 flexDirection: { xs: 'row', md: 'column' },
                 width: { xs: '100%', md: '50%' }
               }}>
-                <CardContent sx={{ flex: '1 0 auto' }}>
-                  <Grid container spacing={7}>
+                <CardContent sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  flex: '1 0 auto', pl: 0
+                }}
+                >
+                  <Grid container sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Grid item xs={9}>
                       <List sx={{ pt: 0 }}>
                         <ListItem sx={{ pt: 0 }}>
@@ -92,7 +99,7 @@ export default function ProductScreen(props: any) {
                         </ListItem>
                       </List>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={3} sx={{ textAlign: 'end' }}>
                       <Typography
                         color='secondary'
                         sx={{
@@ -103,7 +110,7 @@ export default function ProductScreen(props: any) {
                       </Typography>
                     </Grid>
                   </Grid>
-                  <Grid container spacing={2} sx={{ marginLeft: '1px' }}>
+                  <Grid container spacing={2} sx={{ marginLeft: '1px', flexDirection: { xs: 'column', md: 'row' } }}>
                     <Grid item sx={{ pl: 0 }}>
                       <IconButton
                         aria-label="add quantity"
@@ -141,7 +148,7 @@ export default function ProductScreen(props: any) {
                         color="secondary"
                         size="large"
                         startIcon={<AddShoppingCartIcon />}
-                        sx={{ ml: 2, p: 1, borderRadius: '20px' }}
+                        sx={{ ml: { xs: 0, md: 2 }, p: 1, borderRadius: '20px' }}
                       >
                         Add to cart
                       </Button>
@@ -166,8 +173,7 @@ export default function ProductScreen(props: any) {
 export async function getServerSideProps(context: any) {
   // Fetch data from external API
   const { id } = context.params;
-  const res = await fetch(`${process.env.DB_HOST}/api/products/${id}`);
-  const data = await res.json()
+  const data = await getData(`products/${id}`);
 
   // Pass data to the page via props
   return { props: { data } }
