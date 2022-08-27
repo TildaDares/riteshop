@@ -6,12 +6,12 @@ import { AppBar, Box, Button, Link, Stack, Toolbar, Typography } from '@mui/mate
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import styles from '../styles/Home.module.css'
+import styles from '@/styles/Home.module.css'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import SearchBar from '../components/SearchBar'
+import SearchBar from '@/components/SearchBar'
 import { SWRConfig } from 'swr';
-import useUser from '../hooks/user/useUser'
-import { ElevationProps, LayoutProps } from '../types/Layout'
+import useUser from '@/hooks/user/useUser'
+import { ElevationProps, LayoutProps } from '@/types/Layout'
 
 const ElevationScroll = (props: ElevationProps) => {
   const { children } = props;

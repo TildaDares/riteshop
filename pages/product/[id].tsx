@@ -17,12 +17,12 @@ import {
   Typography
 } from '@mui/material';
 import React from 'react';
-import Layout from '../../components/Layout';
+import Layout from '@/components/Layout';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { getData } from '../../utils/fetchData'
+import { getData } from '@/utils/fetchData'
 
 export default function ProductScreen(props: any) {
   const { product } = props.data;

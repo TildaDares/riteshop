@@ -1,14 +1,14 @@
 import React from 'react'
 import Router from 'next/router';
-import Layout from '../components/Layout'
+import Layout from '@/components/Layout'
 import { Controller, useForm } from 'react-hook-form';
 import NextLink from 'next/link'
 import { useSnackbar } from 'notistack';
-import { getError } from '../utils/error';
+import { getError } from '@/utils/error';
 import { Container, TextField, Link, List, ListItem, Button, Typography } from '@mui/material'
-import useLogin from '../hooks/auth/useLogin'
+import useLogin from '@/hooks/auth/useLogin'
 import { useSWRConfig } from 'swr'
-import { FormValues } from '../types/Login'
+import { FormValues } from '@/types/Login'
 
 const Login = () => {
   const { mutate } = useSWRConfig()

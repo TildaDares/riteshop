@@ -1,10 +1,10 @@
 import { Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material'
 import NextLink from 'next/link'
 import Image from 'next/image'
-import Layout from '../components/Layout'
+import Layout from '@/components/Layout'
 import Carousel from 'react-material-ui-carousel';
-import useProducts from '../hooks/product/useProducts'
-import Loader from '../components/Loader'
+import useProducts from '@/hooks/product/useProducts'
+import Loader from '@/components/Loader'
 
 const Home = () => {
   const { products } = useProducts();

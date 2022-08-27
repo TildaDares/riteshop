@@ -1,6 +1,6 @@
 import useSWR from "swr";
 
-import { getData } from '../../utils/fetchData'
+import { getData } from '@/utils/fetchData'
 
 export default function useUser() {
   const { data, mutate, error } = useSWR('users', getData);

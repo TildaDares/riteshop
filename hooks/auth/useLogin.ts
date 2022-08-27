@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { postData } from '../../utils/fetchData'
+import { postData } from '@/utils/fetchData'
 import Cookies from 'js-cookie'
 
 const useLogin = () => {
