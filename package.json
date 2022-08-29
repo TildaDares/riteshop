@@ -7,12 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "eslint --fix --ext .js,.ts,.tsx ./ --ignore-path .gitignore",
     "prepare": "husky install"
   },
   "lint-staged": {
     "*.+(ts|tsx)": [
-      "npm run lint:fix",
-      "npm run test"
+      "npm run lint:fix"
     ]
   },
   "dependencies": {
