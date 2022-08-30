@@ -1,17 +1,15 @@
 import React from 'react'
-import Router from 'next/router';
 import Layout from '@/components/Layout'
 import { Controller, useForm } from 'react-hook-form';
 import NextLink from 'next/link'
 import { useSnackbar } from 'notistack';
 import { getError } from '@/utils/error';
-import { Container, TextField, Link, List, ListItem, Button, Typography } from '@mui/material'
+import { Container, TextField, Grid, Link, List, ListItem, Button, Typography } from '@mui/material'
 import useLogin from '@/hooks/auth/useLogin'
-import { useSWRConfig } from 'swr'
 import { FormValues } from '@/types/Login'
+import GoogleSignIn from '@/components/GoogleSignIn';
 
 const Login = () => {
-  const { mutate } = useSWRConfig()
   const login = useLogin();
   const {
     handleSubmit,
@@ -30,8 +28,7 @@ const Login = () => {
     closeSnackbar();
     try {
       await login(email, password)
-      mutate('users')
-      Router.back()
+      window.location.href = '/'
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: 'error' });
     }
@@ -104,17 +101,23 @@ const Login = () => {
             </ListItem>
             <ListItem>
               <Button variant="contained" type="submit" fullWidth color="primary">
-                Login
+                <Typography>Login</Typography>
               </Button>
             </ListItem>
             <ListItem>
               Don&apos;t have an account? &nbsp;
-              <NextLink href='/' passHref>
+              <NextLink href='/signup' passHref>
                 <Link>Register</Link>
               </NextLink>
             </ListItem>
           </List>
         </form>
+        <Grid sx={{ display: 'flex', alignItems: 'center', mt: 2, mb: 2 }}>
+          <hr style={{ width: '100%', height: '2px' }} />
+          <Typography sx={{ ml: '10px', mr: '10px' }}>OR</Typography>
+          <hr style={{ width: '100%', height: '2px' }} />
+        </Grid>
+        <GoogleSignIn />
       </Container>
     </Layout>
   )

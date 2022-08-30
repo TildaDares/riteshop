@@ -13,7 +13,7 @@ const getData = async (url: string) => {
   return res.data
 }
 
-const postData = async (url: string, data: { email: string; password: string }, token?: string) => {
+const postData = async (url: string, data?, token?: string) => {
   const res = await axios.post(`${baseURL}/api/${url}`, data, {
     headers: {
       'Authorization': `Bearer ${token}`
