@@ -3,7 +3,7 @@ import { Button, Typography } from '@mui/material'
 import Image from 'next/image'
 import GoogleIcon from '../public/google.svg'
 
-const GoogleSignIn = () => {
+const GoogleSignIn = ({ buttonTitle }: { buttonTitle: string }) => {
 
   const login = () => {
     window.open(`${process.env.NEXT_PUBLIC_DB_HOST}/api/auth/google`, "_self");
@@ -22,7 +22,7 @@ const GoogleSignIn = () => {
       }}
     >
       <Image src={GoogleIcon} alt="Google Logo" />
-      <Typography sx={{ ml: 1 }}>Login with Google</Typography>
+      <Typography sx={{ ml: 1 }}>{`${buttonTitle}`} with Google</Typography>
     </Button>
   )
 }
