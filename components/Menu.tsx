@@ -1,17 +1,32 @@
 import * as React from 'react';
 import Logout from '@mui/icons-material/Logout';
 import ProfileAvatar from '@/components/ProfileAvatar'
-import { Divider, MenuItem, Menu, Avatar, ListItemIcon, Tooltip, IconButton } from '@mui/material';
+import { Divider, MenuItem, Menu, Avatar, ListItemButton, ListItemIcon, Tooltip, IconButton, Typography } from '@mui/material';
+import Cookies from 'js-cookie'
+import { postData } from '@/utils/fetchData'
+import { useSWRConfig } from 'swr';
+import { useRouter } from 'next/router'
 
 export default function AccountMenu({ name, role }: { name: string, role: string }) {
+  const { mutate } = useSWRConfig()
+  const router = useRouter()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const handleLogout = async () => {
+    await postData('users/logout')
+    Cookies.remove('authToken');
+    mutate('users')
+    router.reload()
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <>
       <Tooltip title="Account settings">
@@ -61,6 +76,13 @@ export default function AccountMenu({ name, role }: { name: string, role: string
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
+        <MenuItem sx={{ color: '#6c757d' }}>
+          {name}
+          {
+            (role == 'admin' || role == 'salesagent') &&
+            <Typography sx={{ pl: '3px' }}> - logged in as {role}</Typography>
+          }
+        </MenuItem>
         <MenuItem>
           <Avatar /> Profile
         </MenuItem>
@@ -77,11 +99,13 @@ export default function AccountMenu({ name, role }: { name: string, role: string
           Requests
         </MenuItem>
         <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
+        <MenuItem sx={{ color: 'red' }}>
+          <ListItemButton onClick={handleLogout}>
+            <ListItemIcon sx={{ color: 'red' }}>
+              <Logout fontSize="small" />
+            </ListItemIcon>
+            Logout
+          </ListItemButton>
         </MenuItem>
       </Menu>
     </>
