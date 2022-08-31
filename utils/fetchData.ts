@@ -22,4 +22,13 @@ const postData = async (url: string, data?) => {
   return res.data
 }
 
-export { getData, postData }
+const putData = async (url: string, data?) => {
+  const res = await axios.put(`${baseURL}/api/${url}`, data, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  })
+  return res.data
+}
+
+export { getData, postData, putData }
