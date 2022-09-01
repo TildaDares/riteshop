@@ -1,56 +1,52 @@
-import React, { useEffect } from 'react'
-import { useRouter } from 'next/router'
+import React from 'react'
 import Layout from '@/components/Layout'
 import { Controller, useForm } from 'react-hook-form';
 import NextLink from 'next/link'
 import { useSnackbar } from 'notistack';
 import { getError } from '@/utils/error';
 import { Container, TextField, Grid, Link, List, ListItem, Button, Typography } from '@mui/material'
-import useRegister from '@/hooks/auth/useRegister'
+import { FormValues } from '@/types/UpdateProfile'
 import useUser from '@/hooks/user/useUser'
-import { FormValues } from '@/types/Register'
-import GoogleSignIn from '@/components/GoogleSignIn';
+import { putData } from '@/utils/fetchData'
+import Loader from '@/components/Loader';
+import Protected from '@/components/Protected';
 
-const Register = () => {
-  const { user } = useUser()
-  const register = useRegister();
+const UserProfile = () => {
+  const { user, loading } = useUser()
+  const initialState = {
+    name: user ? user.name : '',
+    email: user ? user.email : '',
+  }
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm<FormValues>({
-    defaultValues: {
-      name: '',
-      email: '',
-      password: ''
-    }
+    defaultValues: initialState
   });
-  const router = useRouter();
-  const { redirect } = router.query;
+
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const submitHandler = async ({ name, email, password }: { name: string, email: string, password: string }) => {
+  const submitHandler = async ({ email, name }: { email: string, name: string }) => {
     closeSnackbar();
     try {
-      await register(name, email, password)
-      window.location.href = (redirect ? redirect : '/') as string
+      await putData(`users/${user._id}`, { email, name })
+      enqueueSnackbar('Profile updated successfully', { variant: 'success' });
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: 'error' });
     }
   };
 
-  useEffect(() => {
-    if (user) {
-      router.push('/') //redirect to homepage if logged in
-    }
-  }, [])
+  if (loading) {
+    return <Loader />
+  }
 
   return (
-    <Layout title="Register">
+    <Layout title='Profile'>
       <Container maxWidth="sm" sx={{ minHeight: '80vh' }}>
         <form onSubmit={handleSubmit(submitHandler)}>
           <Typography component="h1" variant="h1" sx={{ textAlign: 'center' }}>
-            Register
+            Your Profile
           </Typography>
           <List>
             <ListItem>
@@ -86,7 +82,6 @@ const Register = () => {
               <Controller
                 name="email"
                 control={control}
-                defaultValue=""
                 rules={{
                   required: true,
                   pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
@@ -112,56 +107,22 @@ const Register = () => {
               ></Controller>
             </ListItem>
             <ListItem>
-              <Controller
-                name="password"
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: true,
-                  minLength: 8,
-                }}
-                render={({ field }) => (
-                  <TextField
-                    variant="outlined"
-                    fullWidth
-                    id="password"
-                    label="Password"
-                    inputProps={{ type: 'password' }}
-                    error={Boolean(errors.password)}
-                    helperText={
-                      errors.password
-                        ? errors.password.type === 'minLength'
-                          ? 'Password length is less than 8'
-                          : 'Password is required'
-                        : ''
-                    }
-                    {...field}
-                  ></TextField>
-                )}
-              ></Controller>
-            </ListItem>
-            <ListItem>
-              <Button variant="contained" type="submit" fullWidth color="primary">
-                <Typography>Register</Typography>
-              </Button>
-            </ListItem>
-            <ListItem>
-              Already have an account? &nbsp;
-              <NextLink href={`/login?redirect=${redirect || '/'}`} passHref>
-                <Link>Login</Link>
-              </NextLink>
+              <Grid sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                <Button variant="contained" type="submit" color="primary">
+                  Save
+                </Button>
+                <Button variant="outlined" type="submit" color="primary">
+                  <NextLink href='/' passHref>
+                    <Link underline='none'>Cancel</Link>
+                  </NextLink>
+                </Button>
+              </Grid>
             </ListItem>
           </List>
         </form>
-        <Grid sx={{ display: 'flex', alignItems: 'center', mt: 2, mb: 2 }}>
-          <hr style={{ width: '100%', height: '2px' }} />
-          <Typography sx={{ ml: '10px', mr: '10px' }}>OR</Typography>
-          <hr style={{ width: '100%', height: '2px' }} />
-        </Grid>
-        <GoogleSignIn buttonTitle='Register' />
       </Container>
     </Layout>
   )
 }
 
-export default Register
+export default Protected(UserProfile)

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import Logout from '@mui/icons-material/Logout';
 import ProfileAvatar from '@/components/ProfileAvatar'
-import { Divider, MenuItem, Menu, Avatar, ListItemButton, ListItemIcon, Tooltip, IconButton, Typography } from '@mui/material';
+import NextLink from 'next/link'
+import { Divider, MenuItem, Menu, Avatar, Link, ListItemButton, ListItemIcon, Tooltip, IconButton, Typography } from '@mui/material';
 import Cookies from 'js-cookie'
 import { postData } from '@/utils/fetchData'
 import { useSWRConfig } from 'swr';
@@ -84,7 +85,9 @@ export default function AccountMenu({ name, role }: { name: string, role: string
           }
         </MenuItem>
         <MenuItem>
-          <Avatar /> Profile
+          <NextLink href='/profile' passHref>
+            <Link underline="none" sx={{ display: 'flex' }}><Avatar /> Profile</Link>
+          </NextLink>
         </MenuItem>
         {
           (role == 'admin' || role == 'salesagent') &&
