@@ -24,6 +24,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchBar from '@/components/SearchBar'
 import { ElevationProps } from '@/types/Layout'
 import Menu from '@/components/Menu'
+import useCart from '@/hooks/cart/useCart';
 
 const ElevationScroll = (props: ElevationProps) => {
   const { children } = props;
@@ -42,6 +43,7 @@ const drawerWidth = 240;
 export default function DrawerAppBar(props) {
   const { window, user } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { cart } = useCart();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -112,7 +114,7 @@ export default function DrawerAppBar(props) {
                 <SearchBar />
                 <NextLink href='/cart' passHref>
                   <Link underline="none">
-                    <Badge badgeContent={1} color="primary">
+                    <Badge badgeContent={cart ? cart.items.length : 0} color="primary">
                       <ShoppingCartIcon fontSize="large" />
                     </Badge>
                   </Link>
