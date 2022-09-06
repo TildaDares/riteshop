@@ -92,7 +92,7 @@ const CartItem = ({ item }) => {
                 }
               }}
             >
-              ${item.product.price * item.quantity} <span>(price: ${item.product.price})</span>
+              ${item.product.price * item.quantity} <span>(Item Price: ${item.product.price})</span>
             </Typography>
           </CardContent>
           <Box sx={{ display: 'flex', alignItems: 'center', pl: 2, pb: 1 }}>
