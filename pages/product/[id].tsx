@@ -16,16 +16,76 @@ import {
   Stack,
   Typography
 } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '@/components/Layout';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { getData } from '@/utils/fetchData'
+import { useSnackbar } from 'notistack';
+import { getError } from '@/utils/error';
+import { getData, postData } from '@/utils/fetchData'
+import { useRouter } from 'next/router';
+import useUser from '@/hooks/user/useUser';
+import { mutate } from 'swr';
 
 export default function ProductScreen(props: any) {
   const { product } = props.data;
+  const router = useRouter();
+  const { user } = useUser();
+  const [quantity, setQuantity] = useState(1)
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+  async function addToCart() {
+    closeSnackbar();
+    try {
+      if (!user) {
+        enqueueSnackbar('Please log in first', { variant: 'error' });
+        return router.push(`/login?redirect=product/${product._id}`);
+      }
+      const body = {
+        item: {
+          product: product._id,
+          quantity
+        }
+      }
+      await postData('cart', body)
+      mutate('cart')
+      enqueueSnackbar('Product added to cart successfully', { variant: 'success' });
+    } catch (err) {
+      enqueueSnackbar(getError(err), { variant: 'error' });
+    }
+  }
+
+  function handleInputChange(e) {
+    closeSnackbar();
+    const value = e.target.value
+    if (value > product.quantity) {
+      enqueueSnackbar('You have exceeded the maximum quantity', { variant: 'warning' });
+      setQuantity(1)
+    } else if (value < 1) {
+      setQuantity(1)
+    } else {
+      setQuantity(value)
+    }
+  }
+
+  function handleAddButton() {
+    closeSnackbar();
+    if (quantity >= product.quantity) {
+      enqueueSnackbar('You have exceeded the maximum quantity', { variant: 'warning' });
+      return;
+    }
+    setQuantity((qty) => Number(qty) + 1);
+  }
+
+  function handleSubtractButton() {
+    closeSnackbar();
+    if (quantity > 1) {
+      setQuantity((qty) => Number(qty) - 1);
+    }
+  }
+
   return (
     <Layout title={product ? product.name : ''} description={product ? product.description : ''}>
       <Container sx={{ minHeight: '80vh' }}>
@@ -113,16 +173,18 @@ export default function ProductScreen(props: any) {
                   <Grid container spacing={2} sx={{ marginLeft: '1px', flexDirection: { xs: 'column', md: 'row' } }}>
                     <Grid item sx={{ pl: 0 }}>
                       <IconButton
-                        aria-label="add quantity"
+                        aria-label="subtract quantity"
                         component="label"
-                        color='primary'
+                        color="primary"
+                        onClick={handleSubtractButton}
                         sx={{ backgroundColor: '#e5e2e2' }}
                       >
-                        <AddIcon />
+                        <RemoveIcon />
                       </IconButton>
                       <Input
-                        defaultValue="1"
+                        value={quantity}
                         type='number'
+                        onChange={handleInputChange}
                         inputProps={{ min: '1', max: product.quantity }}
                         sx={{
                           ml: 1,
@@ -133,12 +195,13 @@ export default function ProductScreen(props: any) {
                         }}
                       />
                       <IconButton
-                        aria-label="subtract quantity"
+                        aria-label="add quantity"
                         component="label"
-                        color="primary"
+                        color='primary'
+                        onClick={handleAddButton}
                         sx={{ backgroundColor: '#e5e2e2' }}
                       >
-                        <RemoveIcon />
+                        <AddIcon />
                       </IconButton>
                     </Grid>
                     <Grid item>
@@ -147,6 +210,7 @@ export default function ProductScreen(props: any) {
                         variant="contained"
                         color="secondary"
                         size="large"
+                        onClick={addToCart}
                         startIcon={<AddShoppingCartIcon />}
                         sx={{ ml: { xs: 0, md: 2 }, p: 1, borderRadius: '20px' }}
                       >

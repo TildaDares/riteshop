@@ -3,13 +3,13 @@ import Cookies from 'js-cookie'
 
 const baseURL = process.env.NEXT_PUBLIC_DB_HOST
 const token = Cookies.get('authToken')
+
 const getData = async (url: string) => {
   const res = await axios.get(`${baseURL}/api/${url}`, {
     headers: {
       'Authorization': `Bearer ${token}`
     }
   })
-
   return res.data
 }
 
@@ -31,4 +31,14 @@ const putData = async (url: string, data?) => {
   return res.data
 }
 
-export { getData, postData, putData }
+const deleteData = async (url: string, data?) => {
+  const res = await axios.delete(`${baseURL}/api/${url}`, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    },
+    data
+  })
+  return res.data
+}
+
+export { getData, postData, putData, deleteData }

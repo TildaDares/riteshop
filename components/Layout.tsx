@@ -30,7 +30,6 @@ const Layout: NextPage<LayoutProps> = (props) => {
       mode: 'light',
       primary: {
         main: '#0d0c22'
-        // main: '#FFB200'
       },
       secondary: {
         main: '#d32f2f',
