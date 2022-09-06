@@ -6,7 +6,6 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import { useSnackbar } from 'notistack';
 import { getError } from '@/utils/error';
 import useUpdateQuantity from '@/hooks/cart/useUpdateQuantity';
-import ProductScreen from 'pages/product/[id]';
 import { deleteData } from '@/utils/fetchData';
 import { mutate } from 'swr';
 

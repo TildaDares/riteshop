@@ -99,7 +99,11 @@ export default function AccountMenu({ name, role }: { name: string, role: string
           Order History
         </MenuItem>
         <MenuItem>
-          Requests
+          <NextLink href='/requests' passHref>
+            <Link underline="none">
+              My Requests
+            </Link>
+          </NextLink>
         </MenuItem>
         <Divider />
         <MenuItem sx={{ color: 'red' }}>
