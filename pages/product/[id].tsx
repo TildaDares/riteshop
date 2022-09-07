@@ -61,7 +61,7 @@ export default function ProductScreen(props: any) {
     closeSnackbar();
     const value = e.target.value
     if (value > product.quantity) {
-      enqueueSnackbar('You have exceeded the maximum quantity', { variant: 'warning' });
+      enqueueSnackbar('You have exceeded the maximum available quantity', { variant: 'warning' });
       setQuantity(1)
     } else if (value < 1) {
       setQuantity(1)
@@ -73,7 +73,7 @@ export default function ProductScreen(props: any) {
   function handleAddButton() {
     closeSnackbar();
     if (quantity >= product.quantity) {
-      enqueueSnackbar('You have exceeded the maximum quantity', { variant: 'warning' });
+      enqueueSnackbar('You have exceeded the maximum available quantity', { variant: 'warning' });
       return;
     }
     setQuantity((qty) => Number(qty) + 1);

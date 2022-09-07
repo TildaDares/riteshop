@@ -6,7 +6,6 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import { useSnackbar } from 'notistack';
 import { getError } from '@/utils/error';
 import useUpdateQuantity from '@/hooks/cart/useUpdateQuantity';
-import ProductScreen from 'pages/product/[id]';
 import { deleteData } from '@/utils/fetchData';
 import { mutate } from 'swr';
 
@@ -19,7 +18,7 @@ const CartItem = ({ item }) => {
     closeSnackbar();
     const value = e.target.value
     if (value > item.product.quantity) {
-      enqueueSnackbar('You have exceeded the maximum quantity', { variant: 'warning' });
+      enqueueSnackbar('You have exceeded the maximum available quantity', { variant: 'warning' });
       setQuantity(1)
     } else if (value < 1) {
       setQuantity(1)
@@ -31,7 +30,7 @@ const CartItem = ({ item }) => {
   function handleAddButton() {
     closeSnackbar();
     if (quantity >= item.product.quantity) {
-      enqueueSnackbar('You have exceeded the maximum quantity', { variant: 'warning' });
+      enqueueSnackbar('You have exceeded the maximum available quantity', { variant: 'warning' });
       return;
     }
     const newQuantity = quantity + 1
