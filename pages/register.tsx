@@ -29,7 +29,7 @@ const Register = () => {
   const { redirect } = router.query;
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const submitHandler = async ({ name, email, password }: { name: string, email: string, password: string }) => {
+  const submitHandler = async ({ name, email, password }: FormValues) => {
     closeSnackbar();
     try {
       await register(name, email, password)

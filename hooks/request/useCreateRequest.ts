@@ -8,7 +8,6 @@ const useCreateRequest = () => {
       requestedRole
     });
     mutate('request-role')
-
     return data
   }, []);
 }

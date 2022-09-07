@@ -27,7 +27,7 @@ const UserProfile = () => {
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const submitHandler = async ({ email, name }: { email: string, name: string }) => {
+  const submitHandler = async ({ email, name }: FormValues) => {
     closeSnackbar();
     try {
       await putData(`users/${user._id}`, { email, name })
