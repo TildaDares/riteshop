@@ -18,7 +18,7 @@ const CartItem = ({ item }) => {
     closeSnackbar();
     const value = e.target.value
     if (value > item.product.quantity) {
-      enqueueSnackbar('You have exceeded the maximum quantity', { variant: 'warning' });
+      enqueueSnackbar('You have exceeded the maximum available quantity', { variant: 'warning' });
       setQuantity(1)
     } else if (value < 1) {
       setQuantity(1)
@@ -30,7 +30,7 @@ const CartItem = ({ item }) => {
   function handleAddButton() {
     closeSnackbar();
     if (quantity >= item.product.quantity) {
-      enqueueSnackbar('You have exceeded the maximum quantity', { variant: 'warning' });
+      enqueueSnackbar('You have exceeded the maximum available quantity', { variant: 'warning' });
       return;
     }
     const newQuantity = quantity + 1
