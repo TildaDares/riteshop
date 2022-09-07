@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { StatusColors, Column } from '@/types/RequestList'
 
 const statusColors: StatusColors = {
@@ -31,7 +31,7 @@ const columns: readonly Column[] = [
     label: 'Date of Request',
     minWidth: 120,
     align: 'right',
-    format: (value: string) => moment(value).format('MMMM DD, YYYY'),
+    format: (value: string) => dayjs(value).format('MMMM DD, YYYY'),
   }
 ];
 
