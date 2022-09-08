@@ -5,11 +5,10 @@ import NextLink from 'next/link'
 import { Divider, MenuItem, Menu, Avatar, Link, ListItemButton, ListItemIcon, Tooltip, IconButton, Typography } from '@mui/material';
 import Cookies from 'js-cookie'
 import { postData } from '@/utils/fetchData'
-import { useSWRConfig } from 'swr';
+import { mutate } from 'swr';
 import { useRouter } from 'next/router'
 
 export default function AccountMenu({ name, role }: { name: string, role: string }) {
-  const { mutate } = useSWRConfig()
   const router = useRouter()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);

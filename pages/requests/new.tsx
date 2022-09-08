@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from '@/components/Layout'
+import Meta from '@/components/Meta'
 import useCreateRequest from '@/hooks/request/useCreateRequest'
 import { getError } from '@/utils/error';
 import { useSnackbar } from 'notistack';
@@ -36,54 +36,53 @@ const NewRequest = () => {
   }
 
   return (
-    <Layout>
-      <Container maxWidth="sm" sx={{ minHeight: '80vh' }}>
-        <form onSubmit={handleSubmit(submitHandler)}>
-          <Typography variant="h1" component="h1" sx={{ textAlign: 'center' }}>
-            New Role Request
-          </Typography>
-          <List>
-            <ListItem>
-              <Controller
-                name="requestedRole"
-                control={control}
-                rules={{
-                  required: true,
-                  validate: (value) => {
-                    const role = value.split(' ').join('').toLowerCase()
-                    return role === 'admin' || role === 'salesagent'
+    <Container maxWidth="sm" sx={{ minHeight: '80vh' }}>
+      <Meta title="New Request" />
+      <form onSubmit={handleSubmit(submitHandler)}>
+        <Typography variant="h1" component="h1" sx={{ textAlign: 'center' }}>
+          New Role Request
+        </Typography>
+        <List>
+          <ListItem>
+            <Controller
+              name="requestedRole"
+              control={control}
+              rules={{
+                required: true,
+                validate: (value) => {
+                  const role = value.split(' ').join('').toLowerCase()
+                  return role === 'admin' || role === 'salesagent'
+                }
+              }}
+              render={({ field }) => (
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="requestedRole"
+                  placeholder="Ex. salesagent or admin"
+                  label="Requested Role"
+                  inputProps={{ type: 'text' }}
+                  error={Boolean(errors.requestedRole)}
+                  helperText={
+                    errors.requestedRole
+                      ? errors.requestedRole.type === 'validate'
+                        ? 'Role can either be salesagent or admin'
+                        : 'Role is required'
+                      : ''
                   }
-                }}
-                render={({ field }) => (
-                  <TextField
-                    variant="outlined"
-                    fullWidth
-                    id="requestedRole"
-                    placeholder="Ex. salesagent or admin"
-                    label="Requested Role"
-                    inputProps={{ type: 'text' }}
-                    error={Boolean(errors.requestedRole)}
-                    helperText={
-                      errors.requestedRole
-                        ? errors.requestedRole.type === 'validate'
-                          ? 'Role can either be salesagent or admin'
-                          : 'Role is required'
-                        : ''
-                    }
-                    {...field}
-                  ></TextField>
-                )}
-              ></Controller>
-            </ListItem>
-            <ListItem>
-              <Button variant="contained" type="submit" fullWidth color="primary">
-                <Typography>Submit</Typography>
-              </Button>
-            </ListItem>
-          </List>
-        </form>
-      </Container>
-    </Layout>
+                  {...field}
+                ></TextField>
+              )}
+            ></Controller>
+          </ListItem>
+          <ListItem>
+            <Button variant="contained" type="submit" fullWidth color="primary">
+              <Typography>Submit</Typography>
+            </Button>
+          </ListItem>
+        </List>
+      </form>
+    </Container>
   )
 }
 

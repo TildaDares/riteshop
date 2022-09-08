@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from '@/components/Layout'
+import Meta from '@/components/Meta'
 import Loader from '@/components/Loader'
 import useRequests from '@/hooks/request/useRequests'
 import NextLink from 'next/link'
@@ -14,25 +14,24 @@ const Requests = () => {
   if (loading) return <Loader />
 
   return (
-    <Layout>
-      <Container sx={{ minHeight: '80vh' }}>
-        <Typography variant="h1" component="h1" sx={{ textAlign: 'center' }}>
-          Your Requests
-        </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-          <Button variant="contained" startIcon={<AddIcon />}>
-            <NextLink href="requests/new">
-              <Link sx={{ color: '#fff' }}>Create new Request</Link>
-            </NextLink>
-          </Button>
-        </Box>
-        {noRequests || requests.length == 0 ?
-          <Typography sx={{ pt: 2, textAlign: 'center', fontSize: '1.2rem' }}>There are no requests to display</Typography>
-          :
-          <RequestList requests={requests} />
-        }
-      </Container>
-    </Layout>
+    <Container sx={{ minHeight: '80vh' }}>
+      <Meta title="Your Requests" />
+      <Typography variant="h1" component="h1" sx={{ textAlign: 'center' }}>
+        Your Requests
+      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+        <Button variant="contained" startIcon={<AddIcon />}>
+          <NextLink href="requests/new">
+            <Link sx={{ color: '#fff' }}>Create new Request</Link>
+          </NextLink>
+        </Button>
+      </Box>
+      {noRequests || requests.length == 0 ?
+        <Typography sx={{ pt: 2, textAlign: 'center', fontSize: '1.2rem' }}>There are no requests to display</Typography>
+        :
+        <RequestList requests={requests} />
+      }
+    </Container>
   )
 }
 

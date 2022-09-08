@@ -1,10 +1,10 @@
 import { Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material'
 import NextLink from 'next/link'
 import Image from 'next/image'
-import Layout from '@/components/Layout'
 import Carousel from 'react-material-ui-carousel';
 import useProducts from '@/hooks/product/useProducts'
 import Loader from '@/components/Loader'
+import Meta from '@/components/Meta';
 
 const Home = () => {
   const { products } = useProducts();
@@ -12,8 +12,9 @@ const Home = () => {
 
   return (
     <>
+      <Meta title="Home" />
       {products ?
-        <Layout>
+        <>
           <Carousel animation="slide" sx={{ marginTop: '10px' }}>
             {featuredImages.map((src, index) =>
               <Image
@@ -65,7 +66,7 @@ const Home = () => {
               ))}
             </Grid>
           </Container>
-        </Layout> : <Loader />
+        </> : <Loader />
       }
     </>
   )

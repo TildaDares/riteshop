@@ -5,13 +5,12 @@ import { Typography } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styles from '@/styles/Home.module.css'
-import { SWRConfig } from 'swr';
 import useUser from '@/hooks/user/useUser'
 import { LayoutProps } from '@/types/Layout'
 import NavBar from '@/components/NavBar'
 
 const Layout: NextPage<LayoutProps> = (props) => {
-  const { title, description, children } = props
+  const { children } = props
   const { user: currentUser } = useUser()
   const theme = createTheme({
     typography: {
@@ -40,28 +39,24 @@ const Layout: NextPage<LayoutProps> = (props) => {
   return (
     <div>
       <Head>
-        <title>{title || title == '' ? `${title} - Riteshop` : 'Riteshop'}</title>
-        {description && <meta name="description" content={description} />}
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <SWRConfig value={{ revalidateOnFocus: false, shouldRetryOnError: false, dedupingInterval: 0 }}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <NavBar user={currentUser} />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <NavBar user={currentUser} />
 
-          <main>
-            {children}
-          </main>
+        <main>
+          {children}
+        </main>
 
-          <footer className={styles.footer}>
-            <Typography>
-              All rights reserved. Riteshop &copy; {new Date().getFullYear()}
-            </Typography>
-          </footer>
-        </ThemeProvider>
-      </SWRConfig>
-    </div>
+        <footer className={styles.footer}>
+          <Typography>
+            All rights reserved. Riteshop &copy; {new Date().getFullYear()}
+          </Typography>
+        </footer>
+      </ThemeProvider>
+    </div >
   )
 }
 

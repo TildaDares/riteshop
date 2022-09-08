@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from '@/components/Layout'
+import Meta from '@/components/Meta'
 import { Controller, useForm } from 'react-hook-form';
 import { useSnackbar } from 'notistack';
 import { getError } from '@/utils/error';
@@ -41,54 +41,53 @@ const UserProfile = () => {
   }
 
   return (
-    <Layout title='Profile'>
-      <Container maxWidth="sm" sx={{ minHeight: '80vh' }}>
-        <form onSubmit={handleSubmit(submitHandler)}>
-          <Typography component="h1" variant="h1" sx={{ textAlign: 'center' }}>
-            Your Profile
-          </Typography>
-          <List>
-            <ListItem>
-              <Controller
-                name="name"
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: true,
-                  minLength: 2,
-                }}
-                render={({ field }) => (
-                  <TextField
-                    variant="outlined"
-                    fullWidth
-                    id="name"
-                    label="Name"
-                    inputProps={{ type: 'name' }}
-                    error={Boolean(errors.name)}
-                    helperText={
-                      errors.name
-                        ? errors.name.type === 'minLength'
-                          ? 'Name length is less than 1'
-                          : 'Name is required'
-                        : ''
-                    }
-                    {...field}
-                  ></TextField>
-                )}
-              ></Controller>
-            </ListItem>
-            <ListItem>
-              <Grid sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                <Button variant="contained" type="submit" color="primary">
-                  Save
-                </Button>
-              </Grid>
-            </ListItem>
-          </List>
-        </form>
-        <ChangePassword userId={user._id} />
-      </Container>
-    </Layout>
+    <Container maxWidth="sm" sx={{ minHeight: '80vh' }}>
+      <Meta title="Your Profile" />
+      <form onSubmit={handleSubmit(submitHandler)}>
+        <Typography component="h1" variant="h1" sx={{ textAlign: 'center' }}>
+          Your Profile
+        </Typography>
+        <List>
+          <ListItem>
+            <Controller
+              name="name"
+              control={control}
+              defaultValue=""
+              rules={{
+                required: true,
+                minLength: 2,
+              }}
+              render={({ field }) => (
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="name"
+                  label="Name"
+                  inputProps={{ type: 'name' }}
+                  error={Boolean(errors.name)}
+                  helperText={
+                    errors.name
+                      ? errors.name.type === 'minLength'
+                        ? 'Name length is less than 1'
+                        : 'Name is required'
+                      : ''
+                  }
+                  {...field}
+                ></TextField>
+              )}
+            ></Controller>
+          </ListItem>
+          <ListItem>
+            <Grid sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+              <Button variant="contained" type="submit" color="primary">
+                Save
+              </Button>
+            </Grid>
+          </ListItem>
+        </List>
+      </form>
+      <ChangePassword userId={user._id} />
+    </Container>
   )
 }
 
