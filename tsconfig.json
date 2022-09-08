@@ -20,6 +20,7 @@
       "@/styles/*": ["styles/*"],
       "@/hooks/*": ["hooks/*"],
       "@/utils/*": ["utils/*"],
+      "@/services/*": ["services/*"],
       "@/types/*": ["types/*"]
     }
   },
