@@ -37,6 +37,9 @@ const OrderDetail = (props: OrderProps) => {
               {shippingAddress.country}
             </ListItem>
             <ListItem>
+              Telephone Number: {shippingAddress.tel}
+            </ListItem>
+            <ListItem>
               <Typography sx={{ fontWeight: 500 }}>Status:{' '}
                 {isDelivered
                   ? `delivered at ${deliveredAt}`
