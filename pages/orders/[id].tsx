@@ -34,7 +34,7 @@ const Order = () => {
 
   return (
     <Container sx={{ minHeight: '80vh' }}>
-      <Meta title="Checkout" />
+      <Meta title="Order" />
       <CheckoutWizard activeStep={1} />
       <Typography component="h1" variant="h1" sx={{ py: 2 }} align="center">
         Order {order._id}
