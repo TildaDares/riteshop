@@ -8,8 +8,9 @@ import { getError } from '@/utils/error';
 import useUpdateQuantity from '@/hooks/cart/useUpdateQuantity';
 import { deleteData } from '@/utils/fetchData';
 import { mutate } from 'swr';
+import { Item } from '@/types/Item';
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item }: { item: Item }) => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [quantity, setQuantity] = useState(item.quantity)
   const updateQuantity = useUpdateQuantity()
@@ -34,7 +35,6 @@ const CartItem = ({ item }) => {
       return;
     }
     const newQuantity = quantity + 1
-    console.log(newQuantity)
     handleQuantityChange(newQuantity)
   }
 
