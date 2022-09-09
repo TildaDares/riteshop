@@ -42,7 +42,6 @@ function ConfirmOrder() {
     closeSnackbar();
     try {
       setLoading(true);
-      console.log(shippingAddress)
       const data = await postData(
         'orders',
         {

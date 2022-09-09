@@ -9,7 +9,6 @@ export const createPaypalTransaction = async (total: number): Promise<PaypalTran
   try {
     const url = `orders/create-paypal-transaction`;
     const data = await postData(url, { total });
-    console.log(data)
     const paypalTransaction: PaypalTransaction = {
       orderID: data.order.id,
     };
