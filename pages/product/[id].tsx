@@ -16,6 +16,7 @@ import {
   Stack,
   Typography
 } from '@mui/material';
+import Error from 'next/error'
 import React, { useState } from 'react';
 import Meta from '@/components/Meta';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -30,7 +31,7 @@ import useUser from '@/hooks/user/useUser';
 import { mutate } from 'swr';
 
 export default function ProductScreen(props: any) {
-  const { product } = props.data;
+  const product = props?.data?.product
   const router = useRouter();
   const { user } = useUser();
   const [quantity, setQuantity] = useState(1)
@@ -84,6 +85,10 @@ export default function ProductScreen(props: any) {
     if (quantity > 1) {
       setQuantity((qty) => Number(qty) - 1);
     }
+  }
+
+  if (props.errorCode) {
+    return <Error statusCode={props.errorCode} />
   }
 
   return (
@@ -234,10 +239,14 @@ export default function ProductScreen(props: any) {
 }
 
 export async function getServerSideProps(context: any) {
-  // Fetch data from external API
-  const { id } = context.params;
-  const data = await getData(`products/${id}`);
-
-  // Pass data to the page via props
-  return { props: { data } }
+  let data = null, errorCode: boolean | number = false;
+  try {
+    const { id } = context.params;
+    data = await getData(`products/${id}`);
+    // Pass data to the page via props
+  } catch (error) {
+    errorCode = 404
+  } finally {
+    return { props: { errorCode, data } }
+  }
 }

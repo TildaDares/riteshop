@@ -33,7 +33,7 @@ const Login = () => {
     closeSnackbar();
     try {
       await login(email, password)
-      window.location.href = (redirect ? redirect : '/') as string
+      router.push(redirect ? redirect : '/')
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: 'error' });
     }
