@@ -1,9 +1,12 @@
 import useSWR from "swr";
 import { getData } from '@/utils/fetchData'
 import { AxiosResponse } from "axios";
+import useUser from "@/hooks/user/useUser";
 
 export default function useCart() {
-  const { data, mutate, error } = useSWR('cart', getData);
+  const { user } = useUser();
+  const url = user ? 'cart' : null;
+  const { data, mutate, error } = useSWR(url, getData);
   const loading = !data && !error;
   const res: AxiosResponse = error?.response
   const status = res && res.data ? res.status : ''

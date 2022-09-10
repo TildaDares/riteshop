@@ -25,6 +25,7 @@ import SearchBar from '@/components/SearchBar'
 import { ElevationProps } from '@/types/Layout'
 import Menu from '@/components/Menu'
 import useCart from '@/hooks/cart/useCart';
+import useUser from '@/hooks/user/useUser'
 
 const ElevationScroll = (props: ElevationProps) => {
   const { children } = props;
@@ -40,10 +41,11 @@ const ElevationScroll = (props: ElevationProps) => {
 
 const drawerWidth = 240;
 
-export default function DrawerAppBar(props) {
-  const { window, user } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+export default function NavBar(props) {
+  const { user } = useUser()
   const { cart } = useCart();
+  const { window } = props;
+  const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

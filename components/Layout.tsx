@@ -5,13 +5,11 @@ import { Typography } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styles from '@/styles/Home.module.css'
-import useUser from '@/hooks/user/useUser'
 import { LayoutProps } from '@/types/Layout'
 import NavBar from '@/components/NavBar'
 
 const Layout: NextPage<LayoutProps> = (props) => {
   const { children } = props
-  const { user: currentUser } = useUser()
   const theme = createTheme({
     typography: {
       h1: {
@@ -44,7 +42,7 @@ const Layout: NextPage<LayoutProps> = (props) => {
 
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <NavBar user={currentUser} />
+        <NavBar />
 
         <main>
           {children}
