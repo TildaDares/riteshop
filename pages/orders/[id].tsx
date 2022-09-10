@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import Error from 'next/error'
+import React, { useEffect, useState } from 'react';
 import {
   Typography,
   CircularProgress,
@@ -15,17 +14,25 @@ import OrderDetail from '@/components/checkout/OrderDetail';
 import PaypalCheckout from '@/components/checkout/PaypalCheckout';
 import useOrder from '@/hooks/order/useOrder';
 import Loader from '@/components/Loader';
+import { useSnackbar } from 'notistack';
+import { getError } from '@/utils/error';
 
 const Order = () => {
   const router = useRouter();
-  const { order, loading, error } = useOrder(router.query.id as string)
+  const id = router.query['id'] as string
+  const { order, loading, error } = useOrder(id)
   const [loadingDeliver, setLoadingDeliver] = useState(false)
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    if (error) {
+      closeSnackbar()
+      router.push('/')
+      enqueueSnackbar(getError(error), { variant: 'error' });
+    }
+  }, [router, id, error])
 
   async function deliverOrderHandler() {
-  }
-
-  if (error) {
-    return <Error statusCode={error?.response?.data?.status} />
   }
 
   if (loading) {
@@ -35,45 +42,48 @@ const Order = () => {
   return (
     <Container sx={{ minHeight: '80vh' }}>
       <Meta title="Order" />
-      <CheckoutWizard activeStep={1} />
-      <Typography component="h1" variant="h1" sx={{ py: 2 }} align="center">
-        Order {order._id}
-      </Typography>
-
-      <OrderDetail
-        items={order.items}
-        shippingFee={order.shippingFee}
-        itemsPrice={order.itemsPrice}
-        totalPrice={order.total}
-        shippingAddress={order.shippingAddress}
-        isDelivered={order.isDelivered}
-        isPaid={order.isPaid}
-        deliveredAt={order.deliveredAt}>
+      {order &&
         <>
-          {!order.isPaid && (
-            <ListItem>
-              {loading ? (
-                <CircularProgress />
-              ) : (
-                <PaypalCheckout total={order.total} orderId={order._id} />
+          <CheckoutWizard activeStep={1} />
+          <Typography component="h1" variant="h1" sx={{ py: 2 }} align="center">
+            Order {order._id}
+          </Typography>
+
+          <OrderDetail
+            items={order.items}
+            shippingFee={order.shippingFee}
+            itemsPrice={order.itemsPrice}
+            totalPrice={order.total}
+            shippingAddress={order.shippingAddress}
+            isDelivered={order.isDelivered}
+            isPaid={order.isPaid}
+            deliveredAt={order.deliveredAt}>
+            <>
+              {!order.isPaid && (
+                <ListItem>
+                  {loading ? (
+                    <CircularProgress />
+                  ) : (
+                    <PaypalCheckout total={order.total} orderId={order._id} />
+                  )}
+                </ListItem>
               )}
-            </ListItem>
-          )}
-          {order.isPaid && !order.isDelivered && (
-            <ListItem>
-              {loadingDeliver && <CircularProgress />}
-              <Button
-                fullWidth
-                variant="contained"
-                color="primary"
-                onClick={deliverOrderHandler}
-              >
-                Mark as Delivered
-              </Button>
-            </ListItem>
-          )}
-        </>
-      </OrderDetail>
+              {order.isPaid && !order.isDelivered && (
+                <ListItem>
+                  {loadingDeliver && <CircularProgress />}
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    onClick={deliverOrderHandler}
+                  >
+                    Mark as Delivered
+                  </Button>
+                </ListItem>
+              )}
+            </>
+          </OrderDetail>
+        </>}
     </Container>
   );
 }

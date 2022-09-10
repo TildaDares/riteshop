@@ -35,7 +35,7 @@ const Layout: NextPage<LayoutProps> = (props) => {
   })
 
   return (
-    <div>
+    <div className={styles.container}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -44,7 +44,7 @@ const Layout: NextPage<LayoutProps> = (props) => {
         <CssBaseline />
         <NavBar />
 
-        <main>
+        <main className={styles.main}>
           {children}
         </main>
 

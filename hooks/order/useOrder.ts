@@ -3,7 +3,8 @@ import useSWR from "swr";
 import { getData } from '@/utils/fetchData'
 
 export default function useOrder(id: string) {
-  const { data, mutate, error } = useSWR(`orders/${id}`, getData);
+  const url = id ? `orders/${id}` : null
+  const { data, mutate, error } = useSWR(url, getData);
   const loading = !data && !error;
 
   return {
