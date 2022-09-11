@@ -9,10 +9,11 @@ const Protected = (Component: React.ComponentType) => {
     const router = useRouter();
 
     useEffect(() => {
+      if (!router.isReady) return;
       if (!loading && !currentUser) {
-        router.push(`/login?redirect=${router.pathname}`);
+        router.push(`/login?redirect=${router.asPath}`);
       }
-    }, [currentUser, loading, router]);
+    }, [currentUser, loading, router.isReady]);
 
     if (currentUser) {
       return <Component />;

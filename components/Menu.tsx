@@ -20,7 +20,7 @@ export default function AccountMenu({ name, role }: { name: string, role: string
     await postData('users/logout')
     Cookies.remove('authToken');
     mutate('users')
-    router.reload()
+    router.push('/')
   };
 
   const handleClose = () => {
