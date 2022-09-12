@@ -53,7 +53,7 @@ const Order = () => {
             items={order.items}
             shippingFee={order.shippingFee}
             itemsPrice={order.itemsPrice}
-            totalPrice={order.total}
+            total={order.total}
             shippingAddress={order.shippingAddress}
             isDelivered={order.isDelivered}
             isPaid={order.isPaid}

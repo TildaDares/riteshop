@@ -17,17 +17,17 @@ import useCart from '@/hooks/cart/useCart';
 import { postData } from '@/utils/fetchData';
 import OrderDetail from '@/components/checkout/OrderDetail';
 import { mutate } from 'swr';
+import Loader from '@/components/Loader';
 
 function ConfirmOrder() {
   const router = useRouter();
   const address = Cookies.get('shippingAddress') as string
 
   const shippingAddress = address ? JSON.parse(address) : ''
-  const { cart, noCart } = useCart()
-  const shippingFee = cart.bill <= 50 ? 0 : 15;
-  const totalPrice = Math.round((cart.bill + shippingFee));
+  const { cart, noCart, loading: cartLoader } = useCart()
 
   useEffect(() => {
+    if (cartLoader) return
     if (!shippingAddress) {
       router.push('/checkout')
     }
@@ -36,6 +36,8 @@ function ConfirmOrder() {
     }
   }, []);
 
+  const shippingFee = cart?.bill <= 50 ? 0 : 15;
+  const total = Math.round((cart?.bill + shippingFee));
   const { closeSnackbar, enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const placeOrderHandler = async () => {
@@ -59,6 +61,10 @@ function ConfirmOrder() {
     }
   };
 
+  if (cartLoader) {
+    return <Loader />
+  }
+
   return (
     <Container sx={{ minHeight: '80vh' }}>
       <Meta title="Checkout" />
@@ -71,7 +77,7 @@ function ConfirmOrder() {
         items={cart.items}
         shippingFee={shippingFee}
         itemsPrice={cart.bill}
-        totalPrice={totalPrice}
+        total={total}
         shippingAddress={shippingAddress}
         isDelivered={false}
         isPaid={false}
