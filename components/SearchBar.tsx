@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 import { InputBase } from '@mui/material'
 import { styled } from '@mui/material/styles';
+import { useRouter } from 'next/router';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -49,16 +50,33 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const SearchBar = () => {
+  const router = useRouter()
+  const [keyword, setKeyword] = useState('')
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    if (!keyword.trim().length) return
+    router.push(`/search?keyword=${keyword.trim()}`)
+  }
+
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setKeyword(e.target.value)
+  }
+
   return (
-    <Search>
-      <SearchIconWrapper>
-        <SearchIcon />
-      </SearchIconWrapper>
-      <StyledInputBase
-        placeholder="Search…"
-        inputProps={{ 'aria-label': 'search' }}
-      />
-    </Search>
+    <form onSubmit={handleSubmit}>
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase
+          placeholder="Search…"
+          inputProps={{ 'aria-label': 'search' }}
+          value={keyword}
+          onChange={handleInputChange}
+        />
+      </Search>
+    </form>
   )
 }
 
