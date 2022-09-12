@@ -1,7 +1,7 @@
 export type StatusColors = {
-  REJECTED: string,
-  APPROVED: string,
-  PENDING: string,
+  rejected: string,
+  approved: string,
+  pending: string,
 }
 
 export interface Column {

@@ -15,11 +15,11 @@ import {
   List,
   ListItem,
 } from '@mui/material';
-import { OrderProps } from '@/types/Order';
+import { Order } from '@/types/Order';
 import { Item } from '@/types/Item';
 
-const OrderDetail = (props: OrderProps) => {
-  const { items, itemsPrice, shippingFee, totalPrice, shippingAddress, isDelivered, isPaid, deliveredAt, children } = props
+const OrderDetail = (props: Order) => {
+  const { items, itemsPrice, shippingFee, total, shippingAddress, isDelivered, isPaid, deliveredAt, children } = props
 
   return (
     <Grid container spacing={1}>
@@ -152,7 +152,7 @@ const OrderDetail = (props: OrderProps) => {
                 </Grid>
                 <Grid item xs={6}>
                   <Typography color="secondary" sx={{ fontWeight: 700 }} align="right">
-                    ${totalPrice}
+                    ${total}
                   </Typography>
                 </Grid>
               </Grid>

@@ -2,8 +2,9 @@ import useSWR from "swr";
 import { getData } from '@/utils/fetchData'
 import { AxiosResponse } from "axios";
 
-export default function useRequests() {
-  const { data, mutate, error } = useSWR('request-role/requests', getData);
+export default function useMyRequests(id: string) {
+  const url = id ? `request-role/requests/${id}` : null
+  const { data, mutate, error } = useSWR(url, getData);
   const loading = !data && !error;
   const res: AxiosResponse = error?.response
   const status = res && res.data ? res.status : ''
@@ -13,6 +14,7 @@ export default function useRequests() {
     loading,
     requests: data?.requests,
     noRequests,
-    mutate
+    mutate,
+    error
   };
 }

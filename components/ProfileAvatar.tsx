@@ -20,12 +20,13 @@ function stringToColor(string: string) {
 }
 
 function stringAvatar(name: string) {
+  const splitedName = name.split(' ')
   return {
     sx: {
       bgcolor: stringToColor(name),
       color: '#0d0c22'
     },
-    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+    children: `${splitedName[0][0]}${splitedName.length > 1 ? splitedName[1][0] : ''}`,
   };
 }
 

@@ -7,8 +7,10 @@ import Cookies from 'js-cookie'
 import { postData } from '@/utils/fetchData'
 import { mutate } from 'swr';
 import { useRouter } from 'next/router'
+import { User } from '@/types/User';
 
-export default function AccountMenu({ name, role }: { name: string, role: string }) {
+export default function AccountMenu({ user }: { user: User }) {
+  const { role, name, _id: userId } = user
   const router = useRouter()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -95,10 +97,14 @@ export default function AccountMenu({ name, role }: { name: string, role: string
           </MenuItem>
         }
         <MenuItem>
-          Order History
+          <NextLink href={`/orders/user/${userId}`} passHref>
+            <Link underline="none">
+              Order History
+            </Link>
+          </NextLink>
         </MenuItem>
         <MenuItem>
-          <NextLink href='/requests' passHref>
+          <NextLink href={`/requests/user/${userId}`} passHref>
             <Link underline="none">
               My Requests
             </Link>

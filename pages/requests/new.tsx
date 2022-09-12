@@ -8,8 +8,10 @@ import { Container, Typography, TextField, List, ListItem, Button } from '@mui/m
 import { Controller, useForm } from 'react-hook-form';
 import { FormValues } from '@/types/RequestRole'
 import { useRouter } from 'next/router';
+import useUser from '@/hooks/user/useUser';
 
 const NewRequest = () => {
+  const { user } = useUser()
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const router = useRouter();
   const createRequest = useCreateRequest();
@@ -29,7 +31,7 @@ const NewRequest = () => {
       const role = requestedRole.split(' ').join('').toLowerCase()
       await createRequest(role)
       enqueueSnackbar('Role requested successfully', { variant: 'success' });
-      router.push('/requests')
+      router.push(`/requests/user/${user._id}`)
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: 'error' });
     }

@@ -123,7 +123,7 @@ export default function NavBar(props) {
                 </NextLink>
               </Grid>
               {user ?
-                (<Menu name={user.name} role={user.role} />) :
+                (<Menu user={user} />) :
                 (<Button size="large">
                   <NextLink href='/login' passHref>
                     <Link underline="none">Login</Link>

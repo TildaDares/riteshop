@@ -1,5 +1,4 @@
 import useSWR from "swr";
-
 import { getData } from '@/utils/fetchData'
 
 export default function useOrder(id: string) {

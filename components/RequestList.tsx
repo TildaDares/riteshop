@@ -1,20 +1,19 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
 import dayjs from 'dayjs'
 import { StatusColors, Column } from '@/types/RequestList'
+import { StyledTableRow, StyledTableCell } from "@/components/TableStyledComponent"
+import { Request } from "@/types/Request"
 
 const statusColors: StatusColors = {
-  REJECTED: '#cc2727',
-  APPROVED: '#3b953e',
-  PENDING: '#fd9400',
+  rejected: '#cc2727',
+  approved: '#3b953e',
+  pending: '#fd9400',
 }
 
 const columns: readonly Column[] = [
@@ -25,6 +24,7 @@ const columns: readonly Column[] = [
     label: 'Status',
     minWidth: 120,
     align: 'right',
+    format: (value: string) => value.toUpperCase()
   },
   {
     id: 'createdAt',
@@ -35,29 +35,9 @@ const columns: readonly Column[] = [
   }
 ];
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
-
-const RequestList = ({ requests }) => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+const RequestList = ({ requests }: { requests: Request[] }) => {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -88,11 +68,11 @@ const RequestList = ({ requests }) => {
           <TableBody>
             {requests
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((req) => {
+              .map((req: Request) => {
                 return (
                   <StyledTableRow hover role="checkbox" tabIndex={-1} key={req._id}>
                     {columns.map((column) => {
-                      const value = column.id == 'status' ? req[column.id].toUpperCase() : req[column.id];
+                      const value = req[column.id] as string;
                       return (
                         <StyledTableCell key={column.id} align={column.align} sx={{ color: statusColors[value as keyof StatusColors] ?? '' }}>
                           {column.format
