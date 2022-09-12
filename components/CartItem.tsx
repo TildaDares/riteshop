@@ -15,9 +15,9 @@ const CartItem = ({ item }: { item: Item }) => {
   const [quantity, setQuantity] = useState(item.quantity)
   const updateQuantity = useUpdateQuantity()
 
-  function handleInputChange(e) {
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     closeSnackbar();
-    const value = e.target.value
+    const value = Number(e.target.value)
     if (value > item.product.quantity) {
       enqueueSnackbar('You have exceeded the maximum available quantity', { variant: 'warning' });
       setQuantity(1)
