@@ -46,7 +46,7 @@ const PaypalCheckout = ({ total, orderId }: { total: number, orderId: string }) 
         })
         .render(paypalButtonsRef.current);
     }
-  }, [sdkReady])
+  }, [closeSnackbar, enqueueSnackbar, orderId, router, sdkReady, total])
 
   function handleLoad() {
     setSdkReady(true)

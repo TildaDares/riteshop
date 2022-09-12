@@ -43,7 +43,7 @@ const Login = () => {
     if (user) {
       router.push('/') // redirect to homepage if logged in
     }
-  }, [])
+  }, [router, user])
 
   return (
     <Container maxWidth="sm" sx={{ minHeight: '80vh' }}>

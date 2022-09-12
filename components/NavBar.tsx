@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { cloneElement, useState } from 'react';
 import NextLink from 'next/link'
 import {
   AppBar,
@@ -34,18 +34,17 @@ const ElevationScroll = (props: ElevationProps) => {
     threshold: 0,
   });
 
-  return React.cloneElement(children, {
+  return cloneElement(children, {
     elevation: trigger ? 4 : 0,
   });
 }
 
 const drawerWidth = 240;
 
-export default function NavBar(props) {
+export default function NavBar() {
   const { user } = useUser()
   const { cart } = useCart();
-  const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -70,11 +69,9 @@ export default function NavBar(props) {
     </Box>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
-
   return (
     <Box sx={{ display: 'flex' }}>
-      <ElevationScroll {...props}>
+      <ElevationScroll>
         <AppBar
           component="nav"
           sx={{
@@ -137,7 +134,6 @@ export default function NavBar(props) {
       <Toolbar />
       <Box component="nav">
         <Drawer
-          container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}

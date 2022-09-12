@@ -13,7 +13,7 @@ const getData = async (url: string) => {
   return res.data
 }
 
-const postData = async (url: string, data?) => {
+const postData = async (url: string, data?: unknown) => {
   const res = await axios.post(`${baseURL}/api/${url}`, data, {
     headers: {
       'Authorization': `Bearer ${token}`
@@ -22,7 +22,7 @@ const postData = async (url: string, data?) => {
   return res.data
 }
 
-const putData = async (url: string, data?) => {
+const putData = async (url: string, data?: unknown) => {
   const res = await axios.put(`${baseURL}/api/${url}`, data, {
     headers: {
       'Authorization': `Bearer ${token}`
@@ -31,7 +31,7 @@ const putData = async (url: string, data?) => {
   return res.data
 }
 
-const deleteData = async (url: string, data?) => {
+const deleteData = async (url: string, data?: unknown) => {
   const res = await axios.delete(`${baseURL}/api/${url}`, {
     headers: {
       'Authorization': `Bearer ${token}`

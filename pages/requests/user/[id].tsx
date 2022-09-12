@@ -23,7 +23,7 @@ const Requests = () => {
       router.push('/')
       enqueueSnackbar(getError(error), { variant: 'error' });
     }
-  }, [router, id, error])
+  }, [router, id, error, closeSnackbar, enqueueSnackbar])
 
   if (loading) return <Loader />
 

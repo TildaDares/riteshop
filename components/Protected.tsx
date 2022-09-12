@@ -13,7 +13,7 @@ const Protected = (Component: React.ComponentType) => {
       if (!loading && !currentUser) {
         router.push(`/login?redirect=${router.asPath}`);
       }
-    }, [currentUser, loading, router.isReady]);
+    }, [currentUser, loading, router]);
 
     if (currentUser) {
       return <Component />;

@@ -6,6 +6,7 @@ import Loader from '@/components/Loader';
 import CartItem from '@/components/CartItem';
 import Meta from '@/components/Meta';
 import NextLink from 'next/link'
+import { Item } from '@/types/Item';
 
 const Cart = () => {
   const { cart, noCart, loading } = useCart()
@@ -23,7 +24,7 @@ const Cart = () => {
         :
         <>
           <Box sx={{ mt: 5 }}>
-            {cart.items.map((item) => (
+            {cart.items.map((item: Item) => (
               <CartItem item={item} key={item.product._id} />))
             }
             <Typography color='secondary'

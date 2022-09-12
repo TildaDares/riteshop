@@ -34,7 +34,7 @@ function ConfirmOrder() {
     if (noCart || cart.items.length === 0) {
       router.push('/cart');
     }
-  }, []);
+  }, [cart.items.length, cartLoader, noCart, router, shippingAddress]);
 
   const shippingFee = cart?.bill <= 50 ? 0 : 15;
   const total = Math.round((cart?.bill + shippingFee));

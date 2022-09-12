@@ -12,6 +12,9 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
+          <link rel='manifest' href='/manifest.json' />
+          <meta name="theme-color" content="#0d0c22" />
+          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
         </Head>
         <body>

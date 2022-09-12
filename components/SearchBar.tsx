@@ -53,7 +53,7 @@ const SearchBar = () => {
   const router = useRouter()
   const [keyword, setKeyword] = useState('')
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (!keyword.trim().length) return
     router.push(`/search?keyword=${keyword.trim()}`)

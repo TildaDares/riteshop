@@ -32,7 +32,7 @@ const Order = () => {
       router.push('/')
       enqueueSnackbar(getError(error), { variant: 'error' });
     }
-  }, [router, id, error])
+  }, [router, id, error, closeSnackbar, enqueueSnackbar])
 
   async function deliverOrderHandler() {
     try {
