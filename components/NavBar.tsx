@@ -50,24 +50,24 @@ export default function NavBar() {
     setMobileOpen(!mobileOpen);
   };
 
-  const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Divider />
-      <List sx={{ mt: 2 }}>
-        <ListItem disablePadding sx={{ px: 2 }}>
-          <SearchBar />
-        </ListItem>
-        <hr />
-        <ListItem disablePadding sx={{ px: 2, textAlign: 'center' }}>
-          <ListItemButton sx={{ textAlign: 'center' }}>
-            <NextLink href="/cart" passHref>
-              <ListItemText primary='My Cart' />
-            </NextLink>
-          </ListItemButton>
-        </ListItem>
-      </List>
-    </Box>
-  );
+  // const drawer = (
+  //   <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+  //     <Divider />
+  //     <List sx={{ mt: 2 }}>
+  //       <ListItem disablePadding sx={{ px: 2 }}>
+  //         <SearchBar />
+  //       </ListItem>
+  //       <hr />
+  //       <ListItem disablePadding sx={{ px: 2, textAlign: 'center' }}>
+  //         <ListItemButton sx={{ textAlign: 'center' }}>
+  //           <NextLink href="/cart" passHref>
+  //             <ListItemText primary='My Cart' />
+  //           </NextLink>
+  //         </ListItemButton>
+  //       </ListItem>
+  //     </List>
+  //   </Box>
+  // );
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -133,7 +133,7 @@ export default function NavBar() {
       </ElevationScroll>
       <Toolbar />
       <Box component="nav">
-        <Drawer
+        {/* <Drawer
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
@@ -145,8 +145,8 @@ export default function NavBar() {
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >
-          {drawer}
-        </Drawer>
+          {drawer} */}
+        {/* </Drawer> */}
       </Box>
     </Box>
   );

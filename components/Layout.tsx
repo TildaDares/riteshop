@@ -10,6 +10,7 @@ import NavBar from '@/components/NavBar'
 import { useRouter } from 'next/router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css'
+import MobileBottomNavigation from '@/components/BottomNavigation';
 
 const Layout: NextPage<LayoutProps> = (props) => {
   const router = useRouter()
@@ -72,6 +73,7 @@ const Layout: NextPage<LayoutProps> = (props) => {
           {children}
         </main>
 
+        <MobileBottomNavigation />
         <footer className={styles.footer}>
           <Typography>
             All rights reserved. Riteshop &copy; {new Date().getFullYear()}
