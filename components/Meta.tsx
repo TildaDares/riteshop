@@ -11,7 +11,7 @@ const Meta: NextPage<MetaProps> = (props) => {
 
   return (
     <Head>
-      <title>{title || title == '' ? `${title} - Riteshop` : 'Riteshop'}</title>
+      <title>{siteTitle}</title>
       <meta name="description" content={description} />
       <meta name="twitter:card" content={description} />
       <meta name="twitter:site" content="@B_eautifulChaos" />
