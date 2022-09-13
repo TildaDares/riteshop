@@ -19,7 +19,7 @@ import { Order } from '@/types/Order';
 import { Item } from '@/types/Item';
 
 const OrderDetail = (props: Order) => {
-  const { items, itemsPrice, shippingFee, total, shippingAddress, isDelivered, isPaid, deliveredAt, children } = props
+  const { items, itemsPrice, shippingFee, total, shippingAddress, isDelivered, isPaid, deliveredAt, user, children } = props
 
   return (
     <Grid container spacing={1}>
@@ -32,12 +32,24 @@ const OrderDetail = (props: Order) => {
               </Typography>
             </ListItem>
             <ListItem>
+              <Typography sx={{ fontWeight: 500, marginRight: '4px' }}>Name:</Typography>
+              <NextLink href={`/users/${user?._id as string}`} passHref>
+                <Link>
+                  {user?.name}
+                </Link>
+              </NextLink>
+            </ListItem>
+            <ListItem>
+              <Typography sx={{ fontWeight: 500, marginRight: '4px' }}>Email: </Typography> {user?.email}
+            </ListItem>
+            <ListItem>
+              <Typography sx={{ fontWeight: 500, marginRight: '4px' }}>Address:</Typography>
               {shippingAddress.address},{' '}
               {shippingAddress.city}, {shippingAddress.postalCode},{' '}
               {shippingAddress.country}
             </ListItem>
             <ListItem>
-              Telephone Number: {shippingAddress.tel}
+              <Typography sx={{ fontWeight: 500, marginRight: '4px' }}> Telephone Number:</Typography> {shippingAddress.tel}
             </ListItem>
             <ListItem>
               <Typography sx={{ fontWeight: 500 }}>Status:{' '}
