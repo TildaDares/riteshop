@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import useUser from '@/hooks/user/useUser';
-import Loader from '@/components/Loader';
+import Loader from '@/components/layout/Loader';
 
 const Protected = (Component: React.ComponentType) => {
   const WrapperComponent = () => {

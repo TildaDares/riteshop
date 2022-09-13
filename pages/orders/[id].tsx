@@ -8,12 +8,12 @@ import {
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import CheckoutWizard from '@/components/checkout/CheckoutWizard';
-import Protected from '@/components/Protected';
-import Meta from '@/components/Meta';
+import Protected from '@/components/auth/Protected';
+import Meta from '@/components/layout/Meta';
 import OrderDetail from '@/components/checkout/OrderDetail';
 import PaypalCheckout from '@/components/checkout/PaypalCheckout';
 import useOrder from '@/hooks/order/useOrder';
-import Loader from '@/components/Loader';
+import Loader from '@/components/layout/Loader';
 import { useSnackbar } from 'notistack';
 import { getError } from '@/utils/error';
 import { putData } from '@/utils/fetchData';
@@ -42,7 +42,6 @@ const Order = () => {
       enqueueSnackbar('Order successfully marked as delivered', { variant: 'success' })
       mutate(`orders/${id}`)
     } catch (err) {
-      console.log(err)
       setLoadingDeliver(false)
       enqueueSnackbar(getError(err), { variant: 'error' })
     }

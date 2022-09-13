@@ -1,13 +1,13 @@
 import React from 'react'
-import Meta from '@/components/Meta'
+import Meta from '@/components/layout/Meta'
 import { Controller, useForm } from 'react-hook-form';
 import { useSnackbar } from 'notistack';
 import { getError } from '@/utils/error';
 import { Container, TextField, Grid, List, ListItem, Button, Typography } from '@mui/material'
 import { FormValues } from '@/types/UpdateProfile'
 import { putData } from '@/utils/fetchData'
-import Loader from '@/components/Loader';
-import ChangePassword from '@/components/ChangePassword';
+import Loader from '@/components/layout/Loader';
+import ChangePassword from '@/components/auth/ChangePassword';
 import { User } from '@/types/User';
 
 const UserProfile = ({ title, user, loading }: { title: string, user: User, loading: any }) => {
@@ -43,7 +43,7 @@ const UserProfile = ({ title, user, loading }: { title: string, user: User, load
       <Meta title={title} />
       <form onSubmit={handleSubmit(submitHandler)}>
         <Typography component="h1" variant="h1" sx={{ textAlign: 'center' }}>
-          Your Profile
+          {title}
         </Typography>
         <List>
           <ListItem>

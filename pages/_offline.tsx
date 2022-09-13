@@ -1,7 +1,7 @@
 import { Container, Typography } from '@mui/material'
 import Image from 'next/image'
 import Carousel from 'react-material-ui-carousel';
-import Meta from '@/components/Meta';
+import Meta from '@/components/layout/Meta';
 
 const Offline = () => {
   const featuredImages = ['/carousel-img1.jpg', '/carousel-img2.jpg', '/carousel-img3.jpg']

@@ -1,6 +1,6 @@
 import React from 'react'
-import Protected from '@/components/Protected';
-import UserProfile from '@/components/UserProfile';
+import Protected from '@/components/auth/Protected';
+import UserProfile from '@/components/users/UserProfile';
 import useUser from '@/hooks/user/useUser';
 
 const Profile = () => {

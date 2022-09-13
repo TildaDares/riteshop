@@ -6,11 +6,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styles from '@/styles/Home.module.css'
 import { LayoutProps } from '@/types/Layout'
-import NavBar from '@/components/NavBar'
+import NavBar from '@/components/layout/NavBar'
 import { useRouter } from 'next/router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css'
-import MobileBottomNavigation from '@/components/BottomNavigation';
+import MobileBottomNavigation from '@/components/layout/BottomNavigation';
 
 const Layout: NextPage<LayoutProps> = (props) => {
   const router = useRouter()

@@ -3,8 +3,8 @@ import NextLink from 'next/link'
 import Image from 'next/image'
 import Carousel from 'react-material-ui-carousel';
 import useProducts from '@/hooks/product/useProducts'
-import Loader from '@/components/Loader'
-import Meta from '@/components/Meta';
+import Loader from '@/components/layout/Loader'
+import Meta from '@/components/layout/Meta';
 import { Product } from '@/types/Product';
 
 const Home = () => {

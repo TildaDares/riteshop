@@ -11,13 +11,13 @@ import CheckoutWizard from '@/components/checkout/CheckoutWizard';
 import { useSnackbar } from 'notistack';
 import { getError } from '@/utils/error';
 import Cookies from 'js-cookie';
-import Protected from '@/components/Protected';
-import Meta from '@/components/Meta';
+import Protected from '@/components/auth/Protected';
+import Meta from '@/components/layout/Meta';
 import useCart from '@/hooks/cart/useCart';
 import { postData } from '@/utils/fetchData';
 import OrderDetail from '@/components/checkout/OrderDetail';
 import { mutate } from 'swr';
-import Loader from '@/components/Loader';
+import Loader from '@/components/layout/Loader';
 
 function ConfirmOrder() {
   const router = useRouter();

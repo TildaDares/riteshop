@@ -8,8 +8,8 @@ import { Container, TextField, Grid, Link, List, ListItem, Button, Typography } 
 import useLogin from '@/hooks/auth/useLogin'
 import { FormValues } from '@/types/Login'
 import useUser from '@/hooks/user/useUser'
-import GoogleSignIn from '@/components/GoogleSignIn';
-import Meta from '@/components/Meta';
+import GoogleSignIn from '@/components/auth/GoogleSignIn';
+import Meta from '@/components/layout/Meta';
 
 const Login = () => {
   const { user } = useUser()

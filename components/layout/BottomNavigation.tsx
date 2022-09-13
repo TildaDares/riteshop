@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import useCart from '@/hooks/cart/useCart';
-import Loader from '@/components/Loader';
+import Loader from '@/components/layout/Loader';
 
 const MobileBottomNavigation = () => {
   const router = useRouter()
@@ -19,10 +19,7 @@ const MobileBottomNavigation = () => {
     router.push(href)
   }
 
-  if (loading) {
-    console.log(loading)
-    return <Loader />
-  }
+  if (loading) return <Loader />
 
   return (
     <Paper

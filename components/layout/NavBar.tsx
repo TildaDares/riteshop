@@ -3,13 +3,7 @@ import NextLink from 'next/link'
 import {
   AppBar,
   Box,
-  Divider,
-  Drawer,
   IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
   Toolbar,
   Typography,
   Button,
@@ -23,7 +17,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchBar from '@/components/SearchBar'
 import { ElevationProps } from '@/types/Layout'
-import Menu from '@/components/Menu'
+import Menu from '@/components/layout/Menu'
 import useCart from '@/hooks/cart/useCart';
 import useUser from '@/hooks/user/useUser'
 
@@ -39,8 +33,6 @@ const ElevationScroll = (props: ElevationProps) => {
   });
 }
 
-const drawerWidth = 240;
-
 export default function NavBar() {
   const { user } = useUser()
   const { cart } = useCart();
@@ -49,25 +41,6 @@ export default function NavBar() {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
-  // const drawer = (
-  //   <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-  //     <Divider />
-  //     <List sx={{ mt: 2 }}>
-  //       <ListItem disablePadding sx={{ px: 2 }}>
-  //         <SearchBar />
-  //       </ListItem>
-  //       <hr />
-  //       <ListItem disablePadding sx={{ px: 2, textAlign: 'center' }}>
-  //         <ListItemButton sx={{ textAlign: 'center' }}>
-  //           <NextLink href="/cart" passHref>
-  //             <ListItemText primary='My Cart' />
-  //           </NextLink>
-  //         </ListItemButton>
-  //       </ListItem>
-  //     </List>
-  //   </Box>
-  // );
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -132,22 +105,6 @@ export default function NavBar() {
         </AppBar>
       </ElevationScroll>
       <Toolbar />
-      <Box component="nav">
-        {/* <Drawer
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-        >
-          {drawer} */}
-        {/* </Drawer> */}
-      </Box>
     </Box>
   );
 }

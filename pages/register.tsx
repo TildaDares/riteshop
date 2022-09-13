@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import Meta from '@/components/Meta'
+import Meta from '@/components/layout/Meta'
 import { Controller, useForm } from 'react-hook-form';
 import NextLink from 'next/link'
 import { useSnackbar } from 'notistack';
@@ -9,7 +9,7 @@ import { Container, TextField, Grid, Link, List, ListItem, Button, Typography } 
 import useRegister from '@/hooks/auth/useRegister'
 import useUser from '@/hooks/user/useUser'
 import { FormValues } from '@/types/Register'
-import GoogleSignIn from '@/components/GoogleSignIn';
+import GoogleSignIn from '@/components/auth/GoogleSignIn';
 
 const Register = () => {
   const { user } = useUser()

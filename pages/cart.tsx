@@ -1,10 +1,10 @@
 import React from 'react'
 import { Button, Box, Container, Link, Typography } from '@mui/material'
 import useCart from '@/hooks/cart/useCart'
-import Protected from '@/components/Protected';
-import Loader from '@/components/Loader';
+import Protected from '@/components/auth/Protected';
+import Loader from '@/components/layout/Loader';
 import CartItem from '@/components/CartItem';
-import Meta from '@/components/Meta';
+import Meta from '@/components/layout/Meta';
 import NextLink from 'next/link'
 import { Item } from '@/types/Item';
 

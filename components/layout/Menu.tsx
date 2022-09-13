@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Logout from '@mui/icons-material/Logout';
-import ProfileAvatar from '@/components/ProfileAvatar'
+import ProfileAvatar from '@/components/auth/ProfileAvatar'
 import NextLink from 'next/link'
 import { Divider, MenuItem, Menu, Avatar, Link, ListItemButton, ListItemIcon, Tooltip, IconButton, Typography } from '@mui/material';
 import Cookies from 'js-cookie'
@@ -8,6 +8,7 @@ import { postData } from '@/utils/fetchData'
 import { mutate } from 'swr';
 import { useRouter } from 'next/router'
 import { User } from '@/types/User';
+import AdminMenu from '@/components/admin/AdminMenu';
 
 export default function AccountMenu({ user }: { user: User }) {
   const { role, name, _id: userId } = user
@@ -90,12 +91,6 @@ export default function AccountMenu({ user }: { user: User }) {
             <Link underline="none" sx={{ display: 'flex' }}><Avatar /> Profile</Link>
           </NextLink>
         </MenuItem>
-        {
-          (role == 'admin' || role == 'salesagent') &&
-          <MenuItem>
-            Dashboard
-          </MenuItem>
-        }
         <MenuItem>
           <NextLink href={`/orders/user/${userId}`} passHref>
             <Link underline="none">
@@ -110,6 +105,7 @@ export default function AccountMenu({ user }: { user: User }) {
             </Link>
           </NextLink>
         </MenuItem>
+        {role == 'admin' && <AdminMenu />}
         <Divider />
         <MenuItem sx={{ color: 'red' }}>
           <ListItemButton onClick={handleLogout}>
