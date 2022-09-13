@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Button, Card, Typography, CardContent, CardMedia, Input } from '@mui/material';
+import { Box, Button, Card, Typography, CardContent, CardMedia, Link, Input } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -9,6 +9,7 @@ import useUpdateQuantity from '@/hooks/cart/useUpdateQuantity';
 import { deleteData } from '@/utils/fetchData';
 import { mutate } from 'swr';
 import { Item } from '@/types/Item';
+import NextLink from 'next/link'
 
 const CartItem = ({ item }: { item: Item }) => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -68,17 +69,25 @@ const CartItem = ({ item }: { item: Item }) => {
   return (
     <Card sx={{ mb: 3, position: 'relative' }}>
       <Box sx={{ display: 'flex', maxHeight: '170px', width: '100%' }}>
-        <CardMedia
-          component="img"
-          sx={{ width: { xs: 110, sm: 151 }, maxHeight: { sm: 151 } }}
-          image={item.product.image}
-          alt={item.product.name}
-        />
+        <NextLink href={`/product/${item.product._id}`} passHref>
+          <Link>
+            <CardMedia
+              component="img"
+              sx={{ width: { xs: 110, sm: 151 }, maxHeight: { sm: 151 } }}
+              image={item.product.image}
+              alt={item.product.name}
+            />
+          </Link>
+        </NextLink>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <CardContent sx={{ flex: '1 0 auto' }}>
-            <Typography component="div" variant="h5">
-              {item.product.name}
-            </Typography>
+            <NextLink href={`/product/${item.product._id}`} passHref>
+              <Link>
+                <Typography component="div" variant="h5">
+                  {item.product.name}
+                </Typography>
+              </Link>
+            </NextLink>
             <Typography
               color='secondary'
               sx={{
