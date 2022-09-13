@@ -1,4 +1,4 @@
-import { Card, CardActionArea, CardActions, InputLabel, MenuItem, CardContent, CardMedia, Container, Grid, Typography, FormControl } from '@mui/material'
+import { Box, Card, CardActionArea, CardActions, InputLabel, MenuItem, CardContent, CardMedia, Container, Grid, Typography, FormControl } from '@mui/material'
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import NextLink from 'next/link'
 import Loader from '@/components/Loader'
@@ -7,6 +7,7 @@ import { Product } from '@/types/Product';
 import useSearch from '@/hooks/search/useSearch';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import SearchBar from '@/components/SearchBar';
 
 const Search = () => {
   const { query, pathname, push } = useRouter();
@@ -26,6 +27,9 @@ const Search = () => {
     <>
       <Meta title="Search" />
       <Container sx={{ minHeight: '80vh' }}>
+        <Box sx={{ display: { xs: 'block', sm: 'none' } }} >
+          <SearchBar />
+        </Box>
         <h1>Search results:</h1>
         {!products || !products.length ?
           <Typography sx={{ pt: 2, textAlign: 'center', fontSize: '1.2rem' }}>No products matched your search term</Typography>
