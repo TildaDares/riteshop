@@ -48,9 +48,7 @@ const Order = () => {
     }
   }
 
-  if (loading) {
-    return <Loader />
-  }
+  if (loading) return <Loader />
 
   return (
     <Container sx={{ minHeight: '80vh' }}>
@@ -70,6 +68,7 @@ const Order = () => {
             shippingAddress={order.shippingAddress}
             isDelivered={order.isDelivered}
             isPaid={order.isPaid}
+            user={order.user}
             deliveredAt={order.deliveredAt}>
             <>
               {!order.isPaid && (

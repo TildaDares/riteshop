@@ -61,9 +61,7 @@ function ConfirmOrder() {
     }
   };
 
-  if (cartLoader) {
-    return <Loader />
-  }
+  if (cartLoader) return <Loader />
 
   return (
     <Container sx={{ minHeight: '80vh' }}>
@@ -81,6 +79,7 @@ function ConfirmOrder() {
         shippingAddress={shippingAddress}
         isDelivered={false}
         isPaid={false}
+        user={cart.user}
       >
         <>
           <ListItem>
