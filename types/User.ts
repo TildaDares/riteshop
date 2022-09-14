@@ -5,6 +5,7 @@ export interface User {
   googleId?: string;
   password: string;
   role: string;
+  createdAt?: Date;
 
   isValidPassword(password: string): Promise<Error | boolean>;
 }
