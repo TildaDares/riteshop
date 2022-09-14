@@ -11,8 +11,8 @@ import {
   Typography,
 } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
-import Meta from '@/components/Meta';
-import Protected from '@/components/Protected';
+import Meta from '@/components/layout/Meta';
+import Protected from '@/components/auth/Protected';
 import { Address } from '@/types/Address';
 
 const Checkout = () => {

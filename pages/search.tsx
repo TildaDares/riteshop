@@ -1,8 +1,8 @@
 import { Box, Card, CardActionArea, CardActions, InputLabel, MenuItem, CardContent, CardMedia, Container, Grid, Typography, FormControl } from '@mui/material'
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import NextLink from 'next/link'
-import Loader from '@/components/Loader'
-import Meta from '@/components/Meta';
+import Loader from '@/components/layout/Loader'
+import Meta from '@/components/layout/Meta';
 import { Product } from '@/types/Product';
 import useSearch from '@/hooks/search/useSearch';
 import { useRouter } from 'next/router';

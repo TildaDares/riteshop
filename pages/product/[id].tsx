@@ -16,9 +16,9 @@ import {
   Stack,
   Typography
 } from '@mui/material';
-import Error from 'next/error'
+import Error from '@/components/Error'
 import React, { useState } from 'react';
-import Meta from '@/components/Meta';
+import Meta from '@/components/layout/Meta';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import AddIcon from '@mui/icons-material/Add';
@@ -87,8 +87,8 @@ export default function ProductScreen(props: any) {
     }
   }
 
-  if (props.errorCode) {
-    return <Error statusCode={props.errorCode} />
+  if (props.error) {
+    return <Error message={getError(props.error)} />
   }
 
   return (
@@ -239,14 +239,12 @@ export default function ProductScreen(props: any) {
 }
 
 export async function getServerSideProps(context: any) {
-  let data = null, errorCode: boolean | number = false;
   try {
     const { id } = context.params;
-    data = await getData(`products/${id}`);
-    // Pass data to the page via props
+    const data = await getData(`products/${id}`);
+    return { props: { data } }
   } catch (error) {
-    errorCode = 404
-  } finally {
-    return { props: { errorCode, data } }
+    let err = JSON.parse(JSON.stringify(error))
+    return { props: { data: null, error: err } }
   }
 }
