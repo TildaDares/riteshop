@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   Typography,
   CircularProgress,
@@ -24,17 +24,23 @@ function ConfirmOrder() {
   const address = Cookies.get('shippingAddress') as string
 
   const shippingAddress = address ? JSON.parse(address) : ''
+  const firstUpdate = useRef(true)
+
   const { cart, noCart, loading: cartLoader } = useCart()
 
   useEffect(() => {
     if (cartLoader) return
+
+    if (!firstUpdate.current) return;
+    firstUpdate.current = false;
     if (!shippingAddress) {
       router.push('/checkout')
     }
-    if (noCart || cart.items.length === 0) {
+
+    if (!cart || noCart || cart.items.length === 0) {
       router.push('/cart');
     }
-  }, [cart.items.length, cartLoader, noCart, router, shippingAddress]);
+  }, [cart])
 
   const shippingFee = cart?.bill <= 50 ? 0 : 15;
   const total = Math.round((cart?.bill + shippingFee));
