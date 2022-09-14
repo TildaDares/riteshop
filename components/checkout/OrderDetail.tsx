@@ -31,14 +31,16 @@ const OrderDetail = (props: Order) => {
                 Shipping Address
               </Typography>
             </ListItem>
-            <ListItem>
-              <Typography sx={{ fontWeight: 500, marginRight: '4px' }}>Name:</Typography>
-              <NextLink href={`/users/${user?._id as string}`} passHref>
-                <Link>
-                  {user?.name}
-                </Link>
-              </NextLink>
-            </ListItem>
+            {user?.role == 'admin' &&
+              <ListItem>
+                <Typography sx={{ fontWeight: 500, marginRight: '4px' }}>Name:</Typography>
+                <NextLink href={`/users/${user?._id as string}`} passHref>
+                  <Link>
+                    {user?.name}
+                  </Link>
+                </NextLink>
+              </ListItem>
+            }
             <ListItem>
               <Typography sx={{ fontWeight: 500, marginRight: '4px' }}>Email: </Typography> {user?.email}
             </ListItem>

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 export default function useUserById(id: string) {
   const { isReady } = useRouter();
-  const url = isReady ? `/users/${id}` : null;
+  const url = isReady ? `users/${id}` : null;
   const { data, mutate, error } = useSWR(url, getData);
 
   const loading = !data && !error;
@@ -12,6 +12,7 @@ export default function useUserById(id: string) {
   return {
     loading,
     user: data?.user,
-    mutate
+    mutate,
+    error
   };
 }       
