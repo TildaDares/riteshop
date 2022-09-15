@@ -8,6 +8,19 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 
 ![Riteshop](https://gitlab.com/deimosdev/internships/se/projects/mathilda-riteshop/riteshop-fe/uploads/07e433ea7e24c7824db6ac1dfb0cbc41/screencapture-localhost-3000-2022-09-15-19_58_54.png)
+
+
+## Getting Started
+
+To run this project on your local machine, do the following:
+
+- Run `git clone https://gitlab.com/deimosdev/internships/se/projects/mathilda-riteshop/riteshop-fe.git` to clone this repo.
+- Run `cd riteshop-fe/` to navigate into the project folder.
+- Run `npm i` to install all the packages.
+- Copy the contents of the `env.example` file and rename to `.env`. You can change the values to setup your own configuration.
+- Run the development server `npm run dev`. This command will automatically run your app on http://localhost:3000/
+
+The backend app of this project can be found [here](https://gitlab.com/deimosdev/internships/se/projects/mathilda-riteshop/riteshop-be).
 ## App Features
 
 ### User authentication and authorisation (including Google login)
@@ -31,14 +44,3 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
   ![App products page](https://gitlab.com/deimosdev/internships/se/projects/mathilda-riteshop/riteshop-fe/uploads/68ecebea9f12a55bd4b8157a2a7584aa/screencapture-localhost-3000-products-all-2022-09-15-19_49_01.png)
   ![All role requests page](https://gitlab.com/deimosdev/internships/se/projects/mathilda-riteshop/riteshop-fe/uploads/24e8683f0261db354acbae0ba28305f5/screencapture-localhost-3000-requests-all-2022-09-15-19_50_53.png)
-## Getting Started
-
-To run this project on your local machine, do the following:
-
-- Run `git clone https://gitlab.com/deimosdev/internships/se/projects/mathilda-riteshop/riteshop-fe.git` to clone this repo.
-- Run `cd riteshop-fe/` to navigate into the project folder.
-- Run `npm i` to install all the packages.
-- Copy the contents of the `env.example` file and rename to `.env`. You can change the values to setup your own configuration.
-- Run the development server `npm run dev`. This command will automatically run your app on http://localhost:3000/
-
-The backend app of this project can be found [here](https://gitlab.com/deimosdev/internships/se/projects/mathilda-riteshop/riteshop-be).
