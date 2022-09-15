@@ -16,7 +16,7 @@ import { mutate } from 'swr';
 
 const columns: readonly Column[] = [
   { id: '_id', label: 'ID', minWidth: 170 },
-  { id: 'price', label: 'Price', minWidth: 100 },
+  { id: 'price', label: 'Price ($)', minWidth: 100 },
   { id: 'quantity', label: 'Quantity', minWidth: 100 },
   {
     id: 'createdAt',
@@ -112,7 +112,7 @@ const OrderList = ({ products }: { products: Product[] }) => {
                       </NextLink>
                     </StyledTableCell>
                     <StyledTableCell>
-                      <Typography color="secondary">${product.price}</Typography>
+                      <Typography color="secondary">{product.price}</Typography>
                     </StyledTableCell>
                     <StyledTableCell>
                       <Typography color="secondary">{product.quantity}</Typography>

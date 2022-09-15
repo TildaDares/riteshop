@@ -92,7 +92,7 @@ const OrderDetail = (props: Order) => {
                       <TableCell>Image</TableCell>
                       <TableCell>Name</TableCell>
                       <TableCell align="right">Quantity</TableCell>
-                      <TableCell align="right">Price</TableCell>
+                      <TableCell align="right">Price ($)</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -102,7 +102,7 @@ const OrderDetail = (props: Order) => {
                           <NextLink href={`/product/${item.product._id}`} passHref>
                             <Link>
                               <Image
-                                src={item.product.image}
+                                src={item.product.image as string}
                                 alt={item.product.name}
                                 width={50}
                                 height={50}
@@ -122,7 +122,7 @@ const OrderDetail = (props: Order) => {
                           <Typography>{item.quantity}</Typography>
                         </TableCell>
                         <TableCell align="right">
-                          <Typography color="secondary">${item.product.price}</Typography>
+                          <Typography color="secondary">{item.product.price}</Typography>
                         </TableCell>
                       </TableRow>
                     ))}
