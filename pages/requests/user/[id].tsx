@@ -1,7 +1,7 @@
 import React from 'react'
 import Meta from '@/components/layout/Meta'
 import Loader from '@/components/layout/Loader'
-import useRequests from '@/hooks/request/useRequests'
+import useRequestsByUser from '@/hooks/request/useRequestsByUser'
 import { Container, Typography } from '@mui/material'
 import RequestList from '@/components/requests/RequestList'
 import { useRouter } from 'next/router'
@@ -12,7 +12,7 @@ import AdminProtected from '@/components/admin/AdminProtected'
 const Requests = () => {
   const router = useRouter()
   const id = router.query['id'] as string
-  const { requests, noRequests, loading, error } = useRequests(id)
+  const { requests, noRequests, loading, error } = useRequestsByUser(id)
 
   if (loading) return <Loader />
 

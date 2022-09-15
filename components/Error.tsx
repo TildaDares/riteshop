@@ -13,7 +13,8 @@ const Error = ({ message }: { message: string }) => {
         Go home
       </Button>
       <Alert variant="filled" severity="error" sx={{ mt: 2 }}>
-        {message}
+        {/* {message} message is not user friendly */}
+        Something unexpected happened. Please try again!
       </Alert>
     </Container>
   )

@@ -17,8 +17,10 @@ import {
 } from '@mui/material';
 import { Order } from '@/types/Order';
 import { Item } from '@/types/Item';
+import useUser from '@/hooks/user/useUser';
 
 const OrderDetail = (props: Order) => {
+  const { user: currentUser, loading: userLoader } = useUser()
   const { items, itemsPrice, shippingFee, total, shippingAddress, isDelivered, isPaid, deliveredAt, user, children } = props
 
   return (
@@ -31,7 +33,7 @@ const OrderDetail = (props: Order) => {
                 Shipping Address
               </Typography>
             </ListItem>
-            {user?.role == 'admin' &&
+            {currentUser.role == 'admin' &&
               <ListItem>
                 <Typography sx={{ fontWeight: 500, marginRight: '4px' }}>Name:</Typography>
                 <NextLink href={`/users/${user?._id as string}`} passHref>

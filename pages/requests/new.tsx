@@ -43,7 +43,7 @@ const NewRequest = () => {
     try {
       await createRequest(selectedRole)
       enqueueSnackbar('Role requested successfully', { variant: 'success' });
-      router.push(`/requests/user/${user._id}`)
+      router.push('/requests')
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: 'error' });
     }

@@ -19,10 +19,12 @@ import { getError } from '@/utils/error';
 import { putData } from '@/utils/fetchData';
 import { mutate } from 'swr';
 import Error from '@/components/Error'
+import useUser from '@/hooks/user/useUser';
 
 const Order = () => {
   const router = useRouter();
   const id = router.query['id'] as string
+  const { user: currentUser, loading: userLoader } = useUser()
   const { order, loading, error } = useOrder(id)
   const [loadingDeliver, setLoadingDeliver] = useState(false)
   const { enqueueSnackbar } = useSnackbar();
@@ -44,7 +46,7 @@ const Order = () => {
     return <Error message={getError(error)} />
   }
 
-  if (loading) return <Loader />
+  if (loading || userLoader) return <Loader />
 
   return (
     <Container sx={{ minHeight: '80vh' }}>
@@ -72,7 +74,7 @@ const Order = () => {
                   <PaypalCheckout total={order.total} orderId={order._id} />
                 </ListItem>
               )}
-              {order.user.role == 'admin' && order.isPaid && !order.isDelivered && (
+              {currentUser.role == 'admin' && order.isPaid && !order.isDelivered && (
                 <ListItem>
                   {loadingDeliver && <CircularProgress />}
                   <Button

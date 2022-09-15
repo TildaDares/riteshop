@@ -1,17 +1,15 @@
 import React from 'react'
 import Meta from '@/components/layout/Meta'
 import Loader from '@/components/layout/Loader'
-import useUsers from '@/hooks/user/useUsers'
+import useOrders from '@/hooks/order/useOrders'
 import { Container, Typography } from '@mui/material'
-import { useRouter } from 'next/router'
+import OrderList from '@/components/orders/OrderList'
 import Error from '@/components/Error'
 import { getError } from '@/utils/error'
 import AdminProtected from '@/components/admin/AdminProtected'
-import UserList from '@/components/users/UserList'
 
-const AllUsers = () => {
-  const router = useRouter()
-  const { users, loading, error, count } = useUsers()
+const AllOrders = () => {
+  const { orders, loading, error, count } = useOrders()
 
   if (loading) return <Loader />
 
@@ -21,17 +19,17 @@ const AllUsers = () => {
 
   return (
     <Container sx={{ minHeight: '80vh' }}>
-      <Meta title="All Users" />
+      <Meta title="All Orders" />
       <Typography variant="h1" component="h1" sx={{ textAlign: 'center' }}>
-        All Users ({count ? count : 0})
+        All Orders ({count})
       </Typography>
-      {!users || users.length == 0 ?
-        <Typography sx={{ pt: 2, textAlign: 'center', fontSize: '1.2rem' }}>There are no users to display</Typography>
+      {!orders || orders.length == 0 ?
+        <Typography sx={{ pt: 2, textAlign: 'center', fontSize: '1.2rem' }}>There are no orders to display</Typography>
         :
-        <UserList users={users} />
+        <OrderList orders={orders} />
       }
     </Container>
   )
 }
 
-export default AdminProtected(AllUsers)
+export default AdminProtected(AllOrders)

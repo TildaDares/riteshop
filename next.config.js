@@ -13,7 +13,7 @@ const nextConfig = withPWA({
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['images.unsplash.com'],
+    domains: ['res.cloudinary.com', 'images.unsplash.com'],
   },
 });
 
