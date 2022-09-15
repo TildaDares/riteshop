@@ -29,11 +29,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - An admin can create a products for the site
   - An admin can approve or reject role requests
 
-  ![All users page](https://gitlab.com/deimosdev/internships/se/projects/mathilda-riteshop/riteshop-fe/uploads/a7b94677e7177fa4ebb3a4484d2dee5e/screencapture-localhost-3000-users-all-2022-09-15-19_48_01.png)
   ![App products page](https://gitlab.com/deimosdev/internships/se/projects/mathilda-riteshop/riteshop-fe/uploads/68ecebea9f12a55bd4b8157a2a7584aa/screencapture-localhost-3000-products-all-2022-09-15-19_49_01.png)
-  ![All orders page](https://gitlab.com/deimosdev/internships/se/projects/mathilda-riteshop/riteshop-fe/uploads/0599e74334ce55cb95a055a61bb57f1d/screencapture-localhost-3000-orders-all-2022-09-15-19_50_01.png)
   ![All role requests page](https://gitlab.com/deimosdev/internships/se/projects/mathilda-riteshop/riteshop-fe/uploads/24e8683f0261db354acbae0ba28305f5/screencapture-localhost-3000-requests-all-2022-09-15-19_50_53.png)
-  ![Edit Product Page](https://gitlab.com/deimosdev/internships/se/projects/mathilda-riteshop/riteshop-fe/uploads/e313b451b726820bc00c2cf6a3aed80a/screencapture-localhost-3000-product-edit-632227d71bae43646ff55cb5-2022-09-15-19_54_08.png)
 ## Getting Started
 
 To run this project on your local machine, do the following:
@@ -42,6 +39,6 @@ To run this project on your local machine, do the following:
 - Run `cd riteshop-fe/` to navigate into the project folder.
 - Run `npm i` to install all the packages.
 - Copy the contents of the `env.example` file and rename to `.env`. You can change the values to setup your own configuration.
-- Run the development server `npm run dev`
+- Run the development server `npm run dev`. This command will automatically run your app on http://localhost:3000/
 
 The backend app of this project can be found [here](https://gitlab.com/deimosdev/internships/se/projects/mathilda-riteshop/riteshop-be).
