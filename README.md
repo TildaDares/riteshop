@@ -6,10 +6,6 @@ Both customers or sales agent can browse, filter and search through the product 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-
-![Riteshop](https://gitlab.com/deimosdev/internships/se/projects/mathilda-riteshop/riteshop-fe/uploads/07e433ea7e24c7824db6ac1dfb0cbc41/screencapture-localhost-3000-2022-09-15-19_58_54.png)
-
-
 ## Getting Started
 
 To run this project on your local machine, do the following:
