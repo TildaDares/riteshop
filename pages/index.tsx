@@ -42,7 +42,7 @@ const Home = () => {
                         <CardMedia
                           sx={{ height: '20rem' }}
                           component="img"
-                          image={product.image}
+                          image={product.image as string}
                           title={product.name}
                         />
                         <CardContent sx={{ paddingBottom: 0 }}>

@@ -40,7 +40,7 @@ function ConfirmOrder() {
     if (!cart || noCart || cart.items.length === 0) {
       router.push('/cart');
     }
-  }, [cart])
+  }, [cart, cartLoader, noCart, router, shippingAddress])
 
   const shippingFee = cart?.bill <= 50 ? 0 : 15;
   const total = Math.round((cart?.bill + shippingFee));

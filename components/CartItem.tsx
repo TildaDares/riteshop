@@ -50,7 +50,7 @@ const CartItem = ({ item }: { item: Item }) => {
   async function handleQuantityChange(qty: number) {
     closeSnackbar();
     try {
-      await updateQuantity(item.product._id, Number(qty))
+      await updateQuantity(item.product._id as string, Number(qty))
       setQuantity(Number(qty))
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: 'error' });
@@ -74,7 +74,7 @@ const CartItem = ({ item }: { item: Item }) => {
             <CardMedia
               component="img"
               sx={{ width: { xs: 110, sm: 151 }, maxHeight: { sm: 151 } }}
-              image={item.product.image}
+              image={item.product.image as string}
               alt={item.product.name}
             />
           </Link>

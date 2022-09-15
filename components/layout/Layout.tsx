@@ -62,7 +62,7 @@ const Layout: NextPage<LayoutProps> = (props) => {
   return (
     <div className={styles.container}>
       <Head>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/icons/favicon.ico" />
       </Head>
 
       <ThemeProvider theme={theme}>
