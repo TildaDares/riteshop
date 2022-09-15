@@ -1,8 +1,9 @@
 export interface Product {
-  _id: string;
+  _id?: string;
   name: string;
   description: string;
   price: number;
   quantity: number;
-  image: string;
+  image?: string | Buffer;
+  createdAt?: string
 }

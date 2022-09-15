@@ -2,6 +2,7 @@ import React from 'react'
 import GroupIcon from '@mui/icons-material/Group';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import UpcomingIcon from '@mui/icons-material/Upcoming';
+import SellIcon from '@mui/icons-material/Sell';
 import { ListItemButton, ListItemIcon, List, ListItemText, ListSubheader, Divider } from '@mui/material';
 import { useRouter } from 'next/router'
 
@@ -35,6 +36,13 @@ const AdminMenu = () => {
             <InventoryIcon />
           </ListItemIcon>
           <ListItemText primary="Products" />
+        </ListItemButton>
+
+        <ListItemButton onClick={() => handleLink('/orders/all')}>
+          <ListItemIcon>
+            <SellIcon />
+          </ListItemIcon>
+          <ListItemText primary="Orders" />
         </ListItemButton>
 
         <ListItemButton onClick={() => handleLink('/requests/all')}>

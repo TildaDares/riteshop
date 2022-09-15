@@ -23,7 +23,6 @@ export default function AccountMenu({ user }: { user: User }) {
     await postData('users/logout')
     Cookies.remove('authToken');
     mutate('users')
-    router.push('/')
   };
 
   const handleClose = () => {
@@ -92,14 +91,14 @@ export default function AccountMenu({ user }: { user: User }) {
           </NextLink>
         </MenuItem>
         <MenuItem>
-          <NextLink href={`/orders/user/${userId}`} passHref>
+          <NextLink href={'/orders'} passHref>
             <Link underline="none">
               Order History
             </Link>
           </NextLink>
         </MenuItem>
         <MenuItem>
-          <NextLink href={`/requests/user/${userId}`} passHref>
+          <NextLink href={'/requests'} passHref>
             <Link underline="none">
               My Requests
             </Link>

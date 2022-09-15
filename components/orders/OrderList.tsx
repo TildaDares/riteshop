@@ -11,7 +11,7 @@ import NextLink from 'next/link'
 
 const columns: readonly Column[] = [
   { id: '_id', label: 'ID', minWidth: 170 },
-  { id: 'total', label: 'Total', minWidth: 100 },
+  { id: 'total', label: 'Total ($)', minWidth: 100 },
   {
     id: 'isPaid',
     label: 'Paid',
@@ -79,7 +79,7 @@ const OrderList = ({ orders }: { orders: Order[] }) => {
                       </NextLink>
                     </StyledTableCell>
                     <StyledTableCell>
-                      <Typography color="secondary">${order.total}</Typography>
+                      <Typography color="secondary">{order.total}</Typography>
                     </StyledTableCell>
                     <StyledTableCell align='right' style={{ minWidth: '20px' }}>
                       <Typography>{order.isPaid ? <CheckIcon sx={{ color: 'green' }} /> : <CloseIcon color='secondary' />}</Typography>

@@ -17,8 +17,10 @@ import {
 } from '@mui/material';
 import { Order } from '@/types/Order';
 import { Item } from '@/types/Item';
+import useUser from '@/hooks/user/useUser';
 
 const OrderDetail = (props: Order) => {
+  const { user: currentUser, loading: userLoader } = useUser()
   const { items, itemsPrice, shippingFee, total, shippingAddress, isDelivered, isPaid, deliveredAt, user, children } = props
 
   return (
@@ -31,14 +33,16 @@ const OrderDetail = (props: Order) => {
                 Shipping Address
               </Typography>
             </ListItem>
-            <ListItem>
-              <Typography sx={{ fontWeight: 500, marginRight: '4px' }}>Name:</Typography>
-              <NextLink href={`/users/${user?._id as string}`} passHref>
-                <Link>
-                  {user?.name}
-                </Link>
-              </NextLink>
-            </ListItem>
+            {currentUser.role == 'admin' &&
+              <ListItem>
+                <Typography sx={{ fontWeight: 500, marginRight: '4px' }}>Name:</Typography>
+                <NextLink href={`/users/${user?._id as string}`} passHref>
+                  <Link>
+                    {user?.name}
+                  </Link>
+                </NextLink>
+              </ListItem>
+            }
             <ListItem>
               <Typography sx={{ fontWeight: 500, marginRight: '4px' }}>Email: </Typography> {user?.email}
             </ListItem>
@@ -88,7 +92,7 @@ const OrderDetail = (props: Order) => {
                       <TableCell>Image</TableCell>
                       <TableCell>Name</TableCell>
                       <TableCell align="right">Quantity</TableCell>
-                      <TableCell align="right">Price</TableCell>
+                      <TableCell align="right">Price ($)</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -98,7 +102,7 @@ const OrderDetail = (props: Order) => {
                           <NextLink href={`/product/${item.product._id}`} passHref>
                             <Link>
                               <Image
-                                src={item.product.image}
+                                src={item.product.image as string}
                                 alt={item.product.name}
                                 width={50}
                                 height={50}
@@ -118,7 +122,7 @@ const OrderDetail = (props: Order) => {
                           <Typography>{item.quantity}</Typography>
                         </TableCell>
                         <TableCell align="right">
-                          <Typography color="secondary">${item.product.price}</Typography>
+                          <Typography color="secondary">{item.product.price}</Typography>
                         </TableCell>
                       </TableRow>
                     ))}

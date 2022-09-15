@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Typography,
   CircularProgress,
@@ -18,21 +18,16 @@ import { useSnackbar } from 'notistack';
 import { getError } from '@/utils/error';
 import { putData } from '@/utils/fetchData';
 import { mutate } from 'swr';
+import Error from '@/components/Error'
+import useUser from '@/hooks/user/useUser';
 
 const Order = () => {
   const router = useRouter();
   const id = router.query['id'] as string
+  const { user: currentUser, loading: userLoader } = useUser()
   const { order, loading, error } = useOrder(id)
   const [loadingDeliver, setLoadingDeliver] = useState(false)
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
-  useEffect(() => {
-    if (error) {
-      closeSnackbar()
-      router.push('/')
-      enqueueSnackbar(getError(error), { variant: 'error' });
-    }
-  }, [router, id, error, closeSnackbar, enqueueSnackbar])
+  const { enqueueSnackbar } = useSnackbar();
 
   async function deliverOrderHandler() {
     try {
@@ -47,7 +42,11 @@ const Order = () => {
     }
   }
 
-  if (loading) return <Loader />
+  if (error) {
+    return <Error message={getError(error)} />
+  }
+
+  if (loading || userLoader) return <Loader />
 
   return (
     <Container sx={{ minHeight: '80vh' }}>
@@ -72,14 +71,10 @@ const Order = () => {
             <>
               {!order.isPaid && (
                 <ListItem>
-                  {loading ? (
-                    <CircularProgress />
-                  ) : (
-                    <PaypalCheckout total={order.total} orderId={order._id} />
-                  )}
+                  <PaypalCheckout total={order.total} orderId={order._id} />
                 </ListItem>
               )}
-              {order.isPaid && !order.isDelivered && (
+              {currentUser.role == 'admin' && order.isPaid && !order.isDelivered && (
                 <ListItem>
                   {loadingDeliver && <CircularProgress />}
                   <Button

@@ -1,18 +1,16 @@
 import useSWR from "swr";
 import { getData } from '@/utils/fetchData'
-import { useRouter } from "next/router";
 
-export default function useUserById(id: string) {
-  const { isReady } = useRouter();
-  const url = isReady ? `users/${id}` : null;
+export default function useOrders() {
+  const url = 'orders/all'
   const { data, mutate, error } = useSWR(url, getData);
-
   const loading = !data && !error;
 
   return {
     loading,
-    user: data?.user,
+    orders: data?.orders,
+    count: data?.count,
     mutate,
     error
   };
-}       
+}

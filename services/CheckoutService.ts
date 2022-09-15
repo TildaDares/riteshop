@@ -1,5 +1,6 @@
 import { getError } from "@/utils/error";
 import { postData } from "@/utils/fetchData";
+import { mutate } from "swr";
 
 interface PaypalTransaction {
   orderID: string;
@@ -22,7 +23,9 @@ export const createPaypalTransaction = async (total: number): Promise<PaypalTran
 export const capturePayment = async (paypalOrderId: string, orderID: string): Promise<void> => {
   try {
     const url = `orders/capture-payment/${orderID}`;
-    return await postData(url, { paypalOrderId });
+    const data = await postData(url, { paypalOrderId });
+    mutate(`orders/${orderID}`)
+    return data
   } catch (error) {
     throw new Error(getError(error));
   }
