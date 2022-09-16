@@ -1,17 +1,18 @@
-import { Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material'
+import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, CircularProgress, Container, Grid, Typography } from '@mui/material'
 import NextLink from 'next/link'
 import Image from 'next/image'
 import Carousel from 'react-material-ui-carousel';
-import useProducts from '@/hooks/product/useProducts'
+import useProductsHome from '@/hooks/product/useProductsHome'
 import Loader from '@/components/layout/Loader'
 import Meta from '@/components/layout/Meta';
 import { Product } from '@/types/Product';
 
 const Home = () => {
-  const { products, loading } = useProducts();
+  const { products, loadMore, isLoadingMore, isLoadingInitialData, isReachingEnd } = useProductsHome();
   const featuredImages = ['/carousel-img1.jpg', '/carousel-img2.jpg', '/carousel-img3.jpg']
+  const showLoadMore = !isLoadingMore && !isReachingEnd;
 
-  if (loading) return <Loader />
+  if (isLoadingInitialData) return <Loader />
 
   return (
     <>
@@ -68,6 +69,25 @@ const Home = () => {
                 </Grid>
               ))}
             </Grid>
+
+            {isLoadingMore && (
+              <CircularProgress />
+            )}
+
+            {showLoadMore && (
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', my: 3 }}>
+                <Button
+                  title="Load More"
+                  onClick={() => loadMore()}
+                  type="button"
+                  variant="outlined"
+                >Load More</Button>
+              </Box>
+            )}
+
+            {isReachingEnd && (
+              <Typography sx={{ pt: 2, textAlign: 'center', fontSize: '1rem' }}>There are no more products to display. You have reached the end.</Typography>
+            )}
           </Container>
         </> : <Typography sx={{ pt: 2, textAlign: 'center', fontSize: '1.2rem' }}>There are no products to display</Typography>
       }
