@@ -47,7 +47,7 @@ const AdminRequestList = ({ requests }: { requests: Request[] }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const handleChangePage = (newPage: number) => {
+  const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
 
