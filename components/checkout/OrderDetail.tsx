@@ -18,10 +18,14 @@ import {
 import { Order } from '@/types/Order';
 import { Item } from '@/types/Item';
 import useUser from '@/hooks/user/useUser';
+import dayjs from 'dayjs'
+import Loader from '@/components/layout/Loader';
 
 const OrderDetail = (props: Order) => {
   const { user: currentUser, loading: userLoader } = useUser()
   const { items, itemsPrice, shippingFee, total, shippingAddress, isDelivered, isPaid, deliveredAt, user, children } = props
+
+  if (userLoader) return <Loader />
 
   return (
     <Grid container spacing={1}>
@@ -58,8 +62,8 @@ const OrderDetail = (props: Order) => {
             <ListItem>
               <Typography sx={{ fontWeight: 500 }}>Status:{' '}
                 {isDelivered
-                  ? `delivered at ${deliveredAt}`
-                  : 'not delivered'}
+                  ? `Delivered at ${dayjs(deliveredAt).format('MMMM DD, YYYY')}`
+                  : 'Not delivered'}
               </Typography>
             </ListItem>
           </List>
