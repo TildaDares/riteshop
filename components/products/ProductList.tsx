@@ -11,8 +11,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useRouter } from 'next/router'
 import { useSnackbar } from 'notistack';
 import { getError } from '@/utils/error';
-import { deleteData } from '@/utils/fetchData';
 import { mutate } from 'swr';
+import axiosInstance from '@/utils/axiosConfig'
 
 const columns: readonly Column[] = [
   { id: '_id', label: 'ID', minWidth: 170 },
@@ -57,7 +57,7 @@ const OrderList = ({ products }: { products: Product[] }) => {
     closeSnackbar()
     setLoading(true)
     try {
-      await deleteData(`products/${id}`)
+      await axiosInstance.delete(`products/${id}`)
       enqueueSnackbar('Product successfully deleted', { variant: 'success' });
       mutate('products')
       setLoading(false)

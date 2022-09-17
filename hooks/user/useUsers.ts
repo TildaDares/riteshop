@@ -1,18 +1,17 @@
 import useSWR from "swr";
-import { getData } from '@/utils/fetchData'
 import useUser from "@/hooks/user/useUser";
 
 export default function useUsers() {
   const { user } = useUser();
   const url = user ? 'users/all' : null;
-  const { data, mutate, error } = useSWR(url, getData);
+  const { data, mutate, error } = useSWR(url);
 
   const loading = !data && !error;
 
   return {
     loading,
-    users: data?.users,
-    count: data?.count,
+    users: data?.data?.users,
+    count: data?.data?.count,
     error,
     mutate
   };

@@ -14,10 +14,10 @@ import Cookies from 'js-cookie';
 import Protected from '@/components/auth/Protected';
 import Meta from '@/components/layout/Meta';
 import useCart from '@/hooks/cart/useCart';
-import { postData } from '@/utils/fetchData';
 import OrderDetail from '@/components/checkout/OrderDetail';
 import { mutate } from 'swr';
 import Loader from '@/components/layout/Loader';
+import axiosInstance from '@/utils/axiosConfig'
 
 function ConfirmOrder() {
   const router = useRouter();
@@ -26,7 +26,7 @@ function ConfirmOrder() {
   const shippingAddress = address ? JSON.parse(address) : ''
   const firstUpdate = useRef(true)
 
-  const { cart, noCart, loading: cartLoader } = useCart()
+  const { cart, loading: cartLoader } = useCart()
 
   useEffect(() => {
     if (cartLoader) return
@@ -37,10 +37,10 @@ function ConfirmOrder() {
       router.push('/checkout')
     }
 
-    if (!cart || noCart || cart.items.length === 0) {
+    if (!cart || cart.items.length === 0) {
       router.push('/cart');
     }
-  }, [cart, cartLoader, noCart, router, shippingAddress])
+  }, [cart, cartLoader, router, shippingAddress])
 
   const shippingFee = cart?.bill <= 50 ? 0 : 15;
   const total = Math.round((cart?.bill + shippingFee));
@@ -50,7 +50,7 @@ function ConfirmOrder() {
     closeSnackbar();
     try {
       setLoading(true);
-      const data = await postData(
+      const data = await axiosInstance.post(
         'orders',
         {
           shippingFee,
@@ -58,7 +58,8 @@ function ConfirmOrder() {
         }
       );
       setLoading(false);
-      router.push(`/orders/${data.order._id}`);
+      const id = data?.data?.order._id
+      router.push(`/orders/${id}`);
       mutate('cart')
       Cookies.remove('shippingAddress');
     } catch (err) {

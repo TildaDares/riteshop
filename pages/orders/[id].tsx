@@ -16,10 +16,10 @@ import useOrder from '@/hooks/order/useOrder';
 import Loader from '@/components/layout/Loader';
 import { useSnackbar } from 'notistack';
 import { getError } from '@/utils/error';
-import { putData } from '@/utils/fetchData';
 import { mutate } from 'swr';
 import Error from '@/components/Error'
 import useUser from '@/hooks/user/useUser';
+import axiosInstance from '@/utils/axiosConfig'
 
 const Order = () => {
   const router = useRouter();
@@ -32,7 +32,7 @@ const Order = () => {
   async function deliverOrderHandler() {
     try {
       setLoadingDeliver(true)
-      await putData(`orders/${id}`, { isDelivered: true, deliveredAt: new Date().toISOString() })
+      await axiosInstance.put(`orders/${id}`, { isDelivered: true, deliveredAt: new Date().toISOString() })
       setLoadingDeliver(false)
       enqueueSnackbar('Order successfully marked as delivered', { variant: 'success' })
       mutate(`orders/${id}`)

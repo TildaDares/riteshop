@@ -6,10 +6,10 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import { useSnackbar } from 'notistack';
 import { getError } from '@/utils/error';
 import useUpdateQuantity from '@/hooks/cart/useUpdateQuantity';
-import { deleteData } from '@/utils/fetchData';
 import { mutate } from 'swr';
 import { Item } from '@/types/Item';
 import NextLink from 'next/link'
+import axiosInstance from '@/utils/axiosConfig'
 
 const CartItem = ({ item }: { item: Item }) => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -59,7 +59,7 @@ const CartItem = ({ item }: { item: Item }) => {
 
   async function removeFromCart() {
     try {
-      await deleteData('cart', { productId: item.product._id })
+      await axiosInstance.delete('cart', { data: { productId: item?.product?._id as string } })
       mutate('cart')
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: 'error' });

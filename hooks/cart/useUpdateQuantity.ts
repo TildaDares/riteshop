@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
-import { putData } from '@/utils/fetchData'
 import { mutate } from 'swr';
+import axiosInstance from '@/utils/axiosConfig'
 
 const useUpdateQuantity = () => {
   return useCallback(async (product: string, quantity: number) => {
-    const data = await putData('cart', {
+    const res = await axiosInstance.put('cart', {
       item: {
         product,
         quantity,
@@ -12,7 +12,7 @@ const useUpdateQuantity = () => {
     });
     mutate('cart')
 
-    return data
+    return res.data
   }, []);
 }
 

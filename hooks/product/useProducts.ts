@@ -1,15 +1,14 @@
 import useSWR from "swr";
-import { getData } from '@/utils/fetchData'
 
 export default function useProducts() {
-  const { data, error } = useSWR('products', getData);
+  const { data, error } = useSWR('products');
 
   const loading = !data && !error;
 
   return {
     loading,
-    products: data?.products,
+    products: data?.data?.products,
     error,
-    count: data?.count
+    count: data?.data?.count
   };
 }

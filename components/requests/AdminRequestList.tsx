@@ -14,8 +14,7 @@ import { Grid, Button, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import { getError } from '@/utils/error'
 import NextLink from 'next/link'
-import { putData } from '@/utils/fetchData';
-import { useRouter } from 'next/router';
+import axiosInstance from '@/utils/axiosConfig'
 import { User } from '@/types/User';
 import { mutate } from 'swr';
 
@@ -48,14 +47,14 @@ const AdminRequestList = ({ requests }: { requests: Request[] }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const handleChangePage = (event: unknown, newPage: number) => {
+  const handleChangePage = (newPage: number) => {
     setPage(newPage);
   };
 
   const handleAction = async (id: string, status: string) => {
     closeSnackbar();
     try {
-      await putData(`request-role/${id}`, { status })
+      await axiosInstance.put(`request-role/${id}`, { status })
       enqueueSnackbar(`Role ${status} successfully`, { variant: 'success' });
       mutate('request-role')
     } catch (error) {

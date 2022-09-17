@@ -1,6 +1,6 @@
 import { getError } from "@/utils/error";
-import { postData } from "@/utils/fetchData";
 import { mutate } from "swr";
+import axiosInstance from '@/utils/axiosConfig'
 
 interface PaypalTransaction {
   orderID: string;
@@ -9,9 +9,9 @@ interface PaypalTransaction {
 export const createPaypalTransaction = async (total: number): Promise<PaypalTransaction> => {
   try {
     const url = `orders/create-paypal-transaction`;
-    const data = await postData(url, { total });
+    const data = await axiosInstance.post(url, { total });
     const paypalTransaction: PaypalTransaction = {
-      orderID: data.order.id,
+      orderID: data?.data?.order.id,
     };
 
     return paypalTransaction;
@@ -23,9 +23,9 @@ export const createPaypalTransaction = async (total: number): Promise<PaypalTran
 export const capturePayment = async (paypalOrderId: string, orderID: string): Promise<void> => {
   try {
     const url = `orders/capture-payment/${orderID}`;
-    const data = await postData(url, { paypalOrderId });
+    const data = await axiosInstance.post(url, { paypalOrderId });
     mutate(`orders/${orderID}`)
-    return data
+    return data?.data
   } catch (error) {
     throw new Error(getError(error));
   }

@@ -25,13 +25,13 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { useSnackbar } from 'notistack';
 import { getError } from '@/utils/error';
-import { getData, postData } from '@/utils/fetchData'
 import { useRouter } from 'next/router';
 import useUser from '@/hooks/user/useUser';
 import { mutate } from 'swr';
+import axiosInstance from '@/utils/axiosConfig'
 
 export default function ProductScreen(props: any) {
-  const product = props?.data?.product
+  const product = props?.product
   const router = useRouter();
   const { user } = useUser();
   const [quantity, setQuantity] = useState(1)
@@ -50,7 +50,7 @@ export default function ProductScreen(props: any) {
           quantity
         }
       }
-      await postData('cart', body)
+      await axiosInstance.post('cart', body)
       mutate('cart')
       enqueueSnackbar('Product added to cart successfully', { variant: 'success' });
     } catch (err) {
@@ -241,8 +241,8 @@ export default function ProductScreen(props: any) {
 export async function getServerSideProps(context: any) {
   try {
     const { id } = context.params;
-    const data = await getData(`products/${id}`);
-    return { props: { data } }
+    const res = await axiosInstance.get(`products/${id}`);
+    return { props: { product: res?.data?.product } }
   } catch (error) {
     let err = JSON.parse(JSON.stringify(error))
     return { props: { data: null, error: err } }

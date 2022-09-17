@@ -11,7 +11,7 @@ import useRequests from '@/hooks/request/useRequests'
 
 const AllRequests = () => {
   const router = useRouter()
-  const { requests, noRequests, loading, error, count } = useRequests()
+  const { requests, loading, error, count } = useRequests()
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const AllRequests = () => {
       <Typography variant="h1" component="h1" sx={{ textAlign: 'center' }}>
         All Requests ({count})
       </Typography>
-      {!requests || noRequests || requests.length == 0 ?
+      {!requests || requests.length == 0 ?
         <Typography sx={{ pt: 2, textAlign: 'center', fontSize: '1.2rem' }}>There are no requests to display</Typography>
         :
         <AdminRequestList requests={requests} />

@@ -4,10 +4,10 @@ import { useRouter } from 'next/router';
 import { useSnackbar } from 'notistack';
 import { getError } from '@/utils/error';
 import { Product } from '@/types/Product';
-import { postData } from '@/utils/fetchData';
 import { Backdrop, CircularProgress } from '@mui/material';
 import CreateProduct from '@/components/products/CreateProduct';
 import { uploadImage } from '@/utils/uploadImage';
+import axiosInstance from '@/utils/axiosConfig'
 
 const NewProduct = () => {
   const router = useRouter()
@@ -20,7 +20,7 @@ const NewProduct = () => {
       if (body.image) {
         body.image = await uploadImage(body.image as Blob) as string
       }
-      await postData('products', body)
+      await axiosInstance.post('products', body)
       enqueueSnackbar('Product successfully created', { variant: 'success' })
       router.push('/products/all')
     } catch (error) {

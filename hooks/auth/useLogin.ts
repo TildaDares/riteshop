@@ -1,14 +1,14 @@
 import { useCallback } from 'react';
-import { postData } from '@/utils/fetchData'
 import { autoLogin } from '@/utils/auth';
+import axiosInstance from '@/utils/axiosConfig'
 
 const useLogin = () => {
   return useCallback(async (email: string, password: string) => {
-    const data = await postData('users/login', {
+    const res = await axiosInstance.post('users/login', {
       email,
       password,
     });
-    autoLogin(data.token)
+    autoLogin(res.data.token)
   }, []);
 }
 

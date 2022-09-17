@@ -3,11 +3,11 @@ import Logout from '@mui/icons-material/Logout';
 import ProfileAvatar from '@/components/auth/ProfileAvatar'
 import NextLink from 'next/link'
 import { Divider, MenuItem, Menu, Avatar, Link, ListItemButton, ListItemIcon, Tooltip, IconButton, Typography } from '@mui/material';
-import { postData } from '@/utils/fetchData'
 import { mutate } from 'swr';
 import { User } from '@/types/User';
 import AdminMenu from '@/components/admin/AdminMenu';
 import { autoLogout } from '@/utils/auth';
+import axiosInstance from '@/utils/axiosConfig'
 
 export default function AccountMenu({ user }: { user: User }) {
   const { role, name } = user
@@ -18,7 +18,7 @@ export default function AccountMenu({ user }: { user: User }) {
   };
 
   const handleLogout = async () => {
-    await postData('users/logout')
+    await axiosInstance.post('users/logout')
     autoLogout()
     mutate('users', null, false)
   };

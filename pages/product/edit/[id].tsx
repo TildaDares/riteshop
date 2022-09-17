@@ -8,9 +8,9 @@ import Loader from '@/components/layout/Loader';
 import { getError } from '@/utils/error';
 import CreateProduct from '@/components/products/CreateProduct';
 import { Product } from '@/types/Product';
-import { putData } from '@/utils/fetchData';
 import { Backdrop, CircularProgress } from '@mui/material';
 import { uploadImage } from '@/utils/uploadImage';
+import axiosInstance from '@/utils/axiosConfig'
 
 const EditProduct = () => {
   const router = useRouter()
@@ -25,7 +25,7 @@ const EditProduct = () => {
       if (body.image) {
         body.image = await uploadImage(body.image as Blob) as string
       }
-      await putData(`products/${id}`, body)
+      await axiosInstance.put(`products/${id}`, body)
       enqueueSnackbar('Product successfully updated', { variant: 'success' })
       router.push(`/product/${id}`)
       setSubmitting(false)

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Meta from '@/components/layout/Meta'
 import Loader from '@/components/layout/Loader'
 import useRequestsByUser from '@/hooks/request/useRequestsByUser'
@@ -7,26 +7,19 @@ import { Box, Button, Container, Link, Typography } from '@mui/material'
 import RequestList from '@/components/requests/RequestList'
 import Protected from '@/components/auth/Protected'
 import AddIcon from '@mui/icons-material/Add';
-import { useRouter } from 'next/router'
-import { useSnackbar } from 'notistack';
 import { getError } from '@/utils/error'
 import useUser from '@/hooks/user/useUser'
+import Error from '@/components/Error'
 
 const Requests = () => {
-  const router = useRouter()
   const { user } = useUser()
-  const { requests, noRequests, loading, error } = useRequestsByUser(user?._id)
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
-  useEffect(() => {
-    if (error) {
-      closeSnackbar()
-      router.push('/')
-      enqueueSnackbar(getError(error), { variant: 'error' });
-    }
-  }, [router, error, closeSnackbar, enqueueSnackbar])
+  const { requests, loading, error } = useRequestsByUser(user?._id)
 
   if (loading) return <Loader />
+
+  if (error) {
+    <Error message={getError(error)} />
+  }
 
   return (
     <Container sx={{ minHeight: '80vh' }}>
@@ -41,7 +34,7 @@ const Requests = () => {
           </NextLink>
         </Button>
       </Box>
-      {!requests || noRequests || requests.length == 0 ?
+      {!requests || requests.length == 0 ?
         <Typography sx={{ pt: 2, textAlign: 'center', fontSize: '1.2rem' }}>There are no requests to display</Typography>
         :
         <RequestList requests={requests} />

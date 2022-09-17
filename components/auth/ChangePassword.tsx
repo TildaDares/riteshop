@@ -5,7 +5,7 @@ import { useSnackbar } from 'notistack';
 import { getError } from '@/utils/error';
 import { TextField, Grid, Link, List, ListItem, Button, Typography } from '@mui/material'
 import { FormValues } from '@/types/UpdatePassword'
-import { putData } from '@/utils/fetchData'
+import axiosInstance from '@/utils/axiosConfig'
 
 const ChangePassword = ({ userId }: { userId: string }) => {
   const {
@@ -30,7 +30,7 @@ const ChangePassword = ({ userId }: { userId: string }) => {
         enqueueSnackbar("New Password and Confirm New Password does not match", { variant: 'error' });
         return;
       }
-      await putData(`users/change-password/${userId}`, { oldPassword, newPassword, confirmNewPassword })
+      await axiosInstance.put(`users/change-password/${userId}`, { oldPassword, newPassword, confirmNewPassword })
       reset()
       enqueueSnackbar('Password changed successfully', { variant: 'success' });
     } catch (err) {

@@ -5,10 +5,10 @@ import { useSnackbar } from 'notistack';
 import { getError } from '@/utils/error';
 import { Container, TextField, Grid, List, ListItem, Button, Typography } from '@mui/material'
 import { FormValues } from '@/types/UpdateProfile'
-import { putData } from '@/utils/fetchData'
 import Loader from '@/components/layout/Loader';
 import ChangePassword from '@/components/auth/ChangePassword';
 import { User } from '@/types/User';
+import axiosInstance from '@/utils/axiosConfig'
 
 const UserProfile = ({ title, user, loading }: { title: string, user: User, loading: any }) => {
   const initialState = {
@@ -24,10 +24,10 @@ const UserProfile = ({ title, user, loading }: { title: string, user: User, load
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const submitHandler = async ({ email, name }: FormValues) => {
+  const submitHandler = async ({ name }: FormValues) => {
     closeSnackbar();
     try {
-      await putData(`users/${user._id}`, { email, name })
+      await axiosInstance.put(`users/${user._id}`, { name })
       enqueueSnackbar('Profile updated successfully', { variant: 'success' });
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: 'error' });

@@ -12,7 +12,7 @@ import AdminProtected from '@/components/admin/AdminProtected'
 const Requests = () => {
   const router = useRouter()
   const id = router.query['id'] as string
-  const { requests, noRequests, loading, error } = useRequestsByUser(id)
+  const { requests, loading, error } = useRequestsByUser(id)
 
   if (loading) return <Loader />
 
@@ -26,7 +26,7 @@ const Requests = () => {
       <Typography variant="h1" component="h1" sx={{ textAlign: 'center' }}>
         Requests
       </Typography>
-      {!requests || noRequests || requests.length == 0 ?
+      {!requests || requests.length == 0 ?
         <Typography sx={{ pt: 2, textAlign: 'center', fontSize: '1.2rem' }}>There are no requests to display</Typography>
         :
         <RequestList requests={requests} />

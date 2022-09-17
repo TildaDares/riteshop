@@ -7,11 +7,18 @@ import CartItem from '@/components/CartItem';
 import Meta from '@/components/layout/Meta';
 import NextLink from 'next/link'
 import { Item } from '@/types/Item';
+import { getError } from '@/utils/error';
+import Error from '@/components/Error'
 
 const Cart = () => {
-  const { cart, noCart, loading } = useCart()
+  const { cart, loading, error } = useCart();
+  const cartItems = cart ? cart.items : [];
 
   if (loading) return <Loader />
+
+  if (error) {
+    <Error message={getError(error)} />
+  }
 
   return (
     <Container maxWidth="md" sx={{ minHeight: '80vh' }}>
@@ -19,12 +26,12 @@ const Cart = () => {
       <Typography component="h1" variant="h1" sx={{ textAlign: 'center' }}>
         Your Cart
       </Typography>
-      {noCart || cart.items.length == 0 ?
+      {cartItems.length == 0 ?
         <Typography sx={{ pt: 2, textAlign: 'center', fontSize: '1.2rem' }}>There are no items in your cart</Typography>
         :
         <>
           <Box sx={{ mt: 5 }}>
-            {cart.items.map((item: Item) => (
+            {cartItems.map((item: Item) => (
               <CartItem item={item} key={item.product._id} />))
             }
             <Typography color='secondary'
