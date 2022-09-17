@@ -1,43 +1,23 @@
-import axios from 'axios'
-import Cookies from 'js-cookie'
-
-const baseURL = process.env.NEXT_PUBLIC_DB_HOST
-const token = Cookies.get('authToken')
+import axios, { AxiosRequestConfig } from 'axios'
+import axiosInstance from '@/utils/axiosConfig'
 
 const getData = async (url: string) => {
-  const res = await axios.get(`${baseURL}/api/${url}`, {
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  })
+  const res = await axiosInstance.get(`/api/${url}`)
   return res.data
 }
 
 const postData = async (url: string, data?: unknown) => {
-  const res = await axios.post(`${baseURL}/api/${url}`, data, {
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  })
+  const res = await axiosInstance.post(`/api/${url}`, data)
   return res.data
 }
 
 const putData = async (url: string, data?: unknown) => {
-  const res = await axios.put(`${baseURL}/api/${url}`, data, {
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  })
+  const res = await axiosInstance.put(`/api/${url}`, data)
   return res.data
 }
 
-const deleteData = async (url: string, data?: unknown) => {
-  const res = await axios.delete(`${baseURL}/api/${url}`, {
-    headers: {
-      'Authorization': `Bearer ${token}`
-    },
-    data
-  })
+const deleteData = async (url: string, data?: AxiosRequestConfig<any> | undefined) => {
+  const res = await axiosInstance.delete(`/api/${url}`, data)
   return res.data
 }
 

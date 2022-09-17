@@ -10,6 +10,7 @@ import useRegister from '@/hooks/auth/useRegister'
 import useUser from '@/hooks/user/useUser'
 import { FormValues } from '@/types/Register'
 import GoogleSignIn from '@/components/auth/GoogleSignIn';
+import { mutate } from 'swr';
 
 const Register = () => {
   const { user } = useUser()
@@ -26,14 +27,15 @@ const Register = () => {
     }
   });
   const router = useRouter();
-  const { redirect } = router.query;
+  const redirect = router.query['redirect'] as string;
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const submitHandler = async ({ name, email, password }: FormValues) => {
     closeSnackbar();
     try {
       await register(name, email, password)
-      window.location.href = (redirect ? redirect : '/') as string
+      mutate('users')
+      router.push(redirect ? redirect : '/')
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: 'error' });
     }

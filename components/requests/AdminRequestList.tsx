@@ -44,7 +44,6 @@ const columns: readonly Column[] = [
 ];
 
 const AdminRequestList = ({ requests }: { requests: Request[] }) => {
-  const router = useRouter()
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -56,7 +55,7 @@ const AdminRequestList = ({ requests }: { requests: Request[] }) => {
   const handleAction = async (id: string, status: string) => {
     closeSnackbar();
     try {
-      await putData(`/request-role/${id}`, { status })
+      await putData(`request-role/${id}`, { status })
       enqueueSnackbar(`Role ${status} successfully`, { variant: 'success' });
       mutate('request-role')
     } catch (error) {

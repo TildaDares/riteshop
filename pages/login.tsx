@@ -10,6 +10,7 @@ import { FormValues } from '@/types/Login'
 import useUser from '@/hooks/user/useUser'
 import GoogleSignIn from '@/components/auth/GoogleSignIn';
 import Meta from '@/components/layout/Meta';
+import { mutate } from 'swr';
 
 const Login = () => {
   const { user } = useUser()
@@ -26,14 +27,15 @@ const Login = () => {
   });
 
   const router = useRouter();
-  const { redirect } = router.query;
+  const redirect = router.query['redirect'] as string;
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const submitHandler = async ({ email, password }: FormValues) => {
     closeSnackbar();
     try {
       await login(email, password)
-      window.location.href = (redirect ? redirect : '/') as string
+      mutate('users')
+      router.push(redirect ? redirect : '/')
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: 'error' });
     }

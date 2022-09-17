@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { postData } from '@/utils/fetchData'
-import Cookies from 'js-cookie'
+import { autoLogin } from '@/utils/auth';
 
 const useRegister = () => {
   return useCallback(async (name: string, email: string, password: string) => {
@@ -9,7 +9,7 @@ const useRegister = () => {
       email,
       password,
     });
-    Cookies.set('authToken', data.token, { expires: 1 });
+    autoLogin(data.token)
   }, []);
 }
 
