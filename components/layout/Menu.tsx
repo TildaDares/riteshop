@@ -6,13 +6,11 @@ import { Divider, MenuItem, Menu, Avatar, Link, ListItemButton, ListItemIcon, To
 import Cookies from 'js-cookie'
 import { postData } from '@/utils/fetchData'
 import { mutate } from 'swr';
-import { useRouter } from 'next/router'
 import { User } from '@/types/User';
 import AdminMenu from '@/components/admin/AdminMenu';
 
 export default function AccountMenu({ user }: { user: User }) {
-  const { role, name, _id: userId } = user
-  const router = useRouter()
+  const { role, name } = user
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {

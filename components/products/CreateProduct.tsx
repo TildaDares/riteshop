@@ -60,7 +60,14 @@ const CreateProduct = (props: CreateProductProps) => {
       enqueueSnackbar('Please add a valid image', { variant: 'error' })
       return
     };
-    submitHandler({ name, description, image: file, price, quantity })
+    const body: Product = {
+      name,
+      description,
+      price,
+      quantity
+    }
+    if (file) body.image = file
+    submitHandler(body)
   };
 
   return (
