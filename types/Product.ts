@@ -4,6 +4,6 @@ export interface Product {
   description: string;
   price: number;
   quantity: number;
-  image?: string | Buffer;
+  image?: string | Buffer | Blob;
   createdAt?: string
 }

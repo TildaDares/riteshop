@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import Meta from '@/components/layout/Meta'
 import { Controller, useForm } from 'react-hook-form';
 import { useSnackbar } from 'notistack';
-import { getError } from '@/utils/error';
 import { Container, TextField, Grid, List, InputAdornment, ListItem, Button, Typography, OutlinedInput, FormControl, InputLabel, FormHelperText } from '@mui/material'
 import { FormValues } from '@/types/CreateProduct'
 import { Product } from '@/types/Product';
@@ -57,41 +56,12 @@ const CreateProduct = (props: CreateProductProps) => {
 
   const onSubmit = async ({ name, description, price, quantity }: FormValues) => {
     closeSnackbar()
-    try {
-      if (required && !file) {
-        enqueueSnackbar('Please add a valid image', { variant: 'error' })
-        return
-      };
-      postProductInfo({ name, description, price, quantity })
-    } catch (error) {
-      enqueueSnackbar(getError(error), { variant: 'error' })
-    }
+    if (required && !file) {
+      enqueueSnackbar('Please add a valid image', { variant: 'error' })
+      return
+    };
+    submitHandler({ name, description, image: file, price, quantity })
   };
-
-  const postProductInfo = (body: Product) => {
-    closeSnackbar()
-    try {
-      if (file) {
-        base64EncodedImage(body)
-      } else {
-        submitHandler(body)
-      }
-    } catch (error) {
-      enqueueSnackbar(getError(error), { variant: 'error' })
-    }
-  }
-
-  const base64EncodedImage = (body: Product) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      body.image = reader.result as Buffer
-      submitHandler(body)
-    };
-    reader.onerror = () => {
-      enqueueSnackbar('Something went wrong!', { variant: 'error' })
-    };
-  }
 
   return (
     <Container maxWidth="sm" sx={{ minHeight: '80vh' }}>

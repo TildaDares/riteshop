@@ -7,6 +7,7 @@ import { Product } from '@/types/Product';
 import { postData } from '@/utils/fetchData';
 import { Backdrop, CircularProgress } from '@mui/material';
 import CreateProduct from '@/components/products/CreateProduct';
+import { uploadImage } from '@/utils/uploadImage';
 
 const NewProduct = () => {
   const router = useRouter()
@@ -16,7 +17,10 @@ const NewProduct = () => {
   async function submitHandler(body: Product) {
     setSubmitting(true)
     try {
-      const product = await postData('products', body)
+      if (body.image) {
+        body.image = await uploadImage(body.image as Blob) as string
+      }
+      await postData('products', body)
       enqueueSnackbar('Product successfully created', { variant: 'success' })
       router.push('/products/all')
     } catch (error) {

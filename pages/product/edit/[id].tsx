@@ -10,6 +10,7 @@ import CreateProduct from '@/components/products/CreateProduct';
 import { Product } from '@/types/Product';
 import { putData } from '@/utils/fetchData';
 import { Backdrop, CircularProgress } from '@mui/material';
+import { uploadImage } from '@/utils/uploadImage';
 
 const EditProduct = () => {
   const router = useRouter()
@@ -21,6 +22,9 @@ const EditProduct = () => {
   async function submitHandler(body: Product) {
     setSubmitting(true)
     try {
+      if (body.image) {
+        body.image = await uploadImage(body.image as Blob) as string
+      }
       await putData(`products/${id}`, body)
       enqueueSnackbar('Product successfully updated', { variant: 'success' })
       router.push(`/product/${id}`)
