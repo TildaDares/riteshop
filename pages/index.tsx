@@ -29,6 +29,7 @@ const Home = () => {
                 key={index}
                 src={src}
                 alt=' Women Fashion'
+                priority
               />
             )}
           </Carousel>
@@ -41,11 +42,11 @@ const Home = () => {
                     <NextLink href={`/product/${product._id}`} passHref>
                       <CardActionArea>
                         <CardMedia
-                          sx={{ height: '20rem' }}
-                          component="img"
-                          image={product.image as string}
+                          sx={{ height: '20rem', position: 'relative' }}
                           title={product.name}
-                        />
+                        >
+                          <Image src={product.image as string} alt={product.name} layout="fill" objectFit='cover' />
+                        </CardMedia>
                         <CardContent sx={{ paddingBottom: 0 }}>
                           <Typography>
                             {product.name}
